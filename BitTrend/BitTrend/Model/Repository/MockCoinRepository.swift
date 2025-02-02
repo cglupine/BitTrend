@@ -9,7 +9,7 @@ import Foundation
 
 class MockCoinRepository: CoinRepository {
     
-    func fetchCoins() async throws -> [Coin] {
+    func fetchCoins() async throws -> [CoinDTO] {
         
         let task = Task {
             
@@ -19,7 +19,8 @@ class MockCoinRepository: CoinRepository {
             if let path = Bundle.main.path(forResource: "coins", ofType: "json"),
                let data = try? Data(contentsOf: URL(fileURLWithPath: path)) {
                 
-                return try JSONDecoder().decode([Coin].self, from: data)
+                let trend = try JSONDecoder().decode(TrendDTO.self, from: data)
+                return trend.coins.map { $0.item }
             }
             
             return []

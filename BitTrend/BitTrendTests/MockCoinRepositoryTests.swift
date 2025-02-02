@@ -14,6 +14,6 @@ struct MockCoinRepositoryTests {
         
         let repository = MockCoinRepository()
         let coins = try await repository.fetchCoins()
-        #expect(!coins.isEmpty)
+        #expect(coins.count == 15)
     }
 }

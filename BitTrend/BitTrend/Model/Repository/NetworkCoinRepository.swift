@@ -9,7 +9,7 @@ import Foundation
 
 class NetworkCoinRepository: CoinRepository {
     
-    func fetchCoins() async throws -> [Coin] {
+    func fetchCoins() async throws -> [CoinDTO] {
         
         return []
     }
