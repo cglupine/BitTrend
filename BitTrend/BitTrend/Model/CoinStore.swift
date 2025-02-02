@@ -18,10 +18,17 @@ class CoinStore: ObservableObject {
         self.repository = repository
     }
     
+    func fetchEURRate() async throws -> Double {
+        
+        let rates = try await self.repository.fetchBitCoinRates()
+        return rates.rates["eur"]?.value ?? .zero
+    }
+    
     @MainActor func fetchCoins() async throws {
 
+        let eurRate = try await self.fetchEURRate()
         let fetched = try await self.repository.fetchCoins()
-            .map { $0.viewModel() }
+            .map { $0.viewModel(eurRate: eurRate) }
         
         self.coins = Array(fetched.prefix(10))
     }

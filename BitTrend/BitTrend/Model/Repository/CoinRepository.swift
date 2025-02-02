@@ -9,5 +9,6 @@ import Foundation
 
 protocol CoinRepository {
     
+    func fetchBitCoinRates() async throws -> RatesDTO
     func fetchCoins() async throws -> [CoinDTO]
 }

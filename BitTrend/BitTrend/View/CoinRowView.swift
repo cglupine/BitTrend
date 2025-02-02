@@ -37,7 +37,8 @@ struct CoinRowView: View {
             
             Spacer()
             
-            Text("\(self.coin.ranking)")
+            Text(self.coin.eurPrice, format: .currency(code: "EUR"))
+                .font(.caption)
         }
     }
 }
@@ -47,7 +48,7 @@ struct CoinRowView: View {
         Color.blue
             .ignoresSafeArea()
         
-        CoinRowView(coin: .bitcoin())
+        CoinRowView(coin: .mockBitCoin())
             .padding()
     }
 }

@@ -9,6 +9,24 @@ import Foundation
 
 class MockCoinRepository: CoinRepository {
     
+    func fetchBitCoinRates() async throws -> RatesDTO {
+        
+        let task = Task {
+            
+            /// simulate network request loading time
+            try await Task.sleep(for: .seconds(0.3))
+            
+            if let data = self.loadJSONFileData(name: "rates") {
+                
+                return try JSONDecoder().decode(RatesDTO.self, from: data)
+            }
+            
+            return RatesDTO.empty()
+        }
+        
+        return try await task.value
+    }
+    
     func fetchCoins() async throws -> [CoinDTO] {
         
         let task = Task {
@@ -16,9 +34,8 @@ class MockCoinRepository: CoinRepository {
             /// simulate network request loading time
             try await Task.sleep(for: .seconds(1.5))
             
-            if let path = Bundle.main.path(forResource: "coins", ofType: "json"),
-               let data = try? Data(contentsOf: URL(fileURLWithPath: path)) {
-                
+            if let data = self.loadJSONFileData(name: "coins") {
+             
                 let trend = try JSONDecoder().decode(TrendDTO.self, from: data)
                 return trend.coins.map { $0.item }
             }
@@ -27,5 +44,17 @@ class MockCoinRepository: CoinRepository {
         }
         
         return try await task.value
+    }
+    
+    //MARK: - PRIVATE
+    
+    private func loadJSONFileData(name: String) -> Data? {
+        
+        if let path = Bundle.main.path(forResource: name, ofType: "json") {
+           
+            return try? Data(contentsOf: URL(fileURLWithPath: path))
+        }
+        
+        return nil
     }
 }
