@@ -13,10 +13,10 @@ struct ErrorView: View {
     
     var body: some View {
         VStack {
-            Text("Oops, an error occurred, please try again")
+            Text(LK.errorRetry.rawValue)
                 .font(.subheadline)
             
-            Button("RETRY", action: self.action)
+            Button(LK.retry.rawValue, action: self.action)
                 .buttonStyle(.borderedProminent)
         }
     }

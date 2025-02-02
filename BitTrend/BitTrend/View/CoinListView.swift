@@ -25,7 +25,7 @@ struct CoinsListView: View {
                 switch self.state {
                     
                 case .loading:
-                    ProgressView("Loading...")
+                    ProgressView(LK.loading.rawValue)
                     
                 case .failed:
                     ErrorView(action: self.fetchCoins)
@@ -37,7 +37,7 @@ struct CoinsListView: View {
                     }
                 }
             }
-            .navigationTitle("BitTrend")
+            .navigationTitle(LK.appName.rawValue)
         }
         .task {
             self.fetchCoins()
