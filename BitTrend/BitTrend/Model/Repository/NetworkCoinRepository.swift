@@ -9,6 +9,11 @@ import Foundation
 
 class NetworkCoinRepository: CoinRepository {
     
+    func fetchBitCoinRates() async throws -> RatesDTO {
+        
+        .init(rates: [:])
+    }
+    
     func fetchCoins() async throws -> [CoinDTO] {
         
         return []

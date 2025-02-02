@@ -13,7 +13,7 @@ struct BitTrendApp: App {
     var body: some Scene {
         
         WindowGroup {
-            ContentView()
+            CoinsListView()
         }
     }
 }

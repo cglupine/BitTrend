@@ -13,14 +13,18 @@ struct CoinViewModel: Identifiable {
     let name: String
     let symbol: String
     let ranking: Int
+    let btcPrice: Double
+    let eurPrice: Double
     let thumbnailURLString: String
     
-    static func bitcoin() -> Self {
+    static func mockBitCoin() -> Self {
         .init(
             id: "bitcoin",
             name: "Bitcoin",
             symbol: "BTC",
             ranking: 1,
+            btcPrice: 1,
+            eurPrice: 95832.34,
             thumbnailURLString: "https://coin-images.coingecko.com/coins/images/1/standard/bitcoin.png?1696501400"
         )
     }
