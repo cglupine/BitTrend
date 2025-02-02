@@ -1,0 +1,24 @@
+{
+  "sourceLanguage" : "en",
+  "strings" : {
+    "%lld" : {
+
+    },
+    "BitTrend" : {
+
+    },
+    "Hello, world!" : {
+
+    },
+    "Loading..." : {
+
+    },
+    "Oops, an error occurred, please try again" : {
+
+    },
+    "RETRY" : {
+
+    }
+  },
+  "version" : "1.0"
+}
