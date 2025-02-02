@@ -9,7 +9,9 @@ import SwiftUI
 
 @main
 struct BitTrendApp: App {
+    
     var body: some Scene {
+        
         WindowGroup {
             ContentView()
         }
