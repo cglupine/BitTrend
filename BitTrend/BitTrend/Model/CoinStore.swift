@@ -18,12 +18,6 @@ class CoinStore: ObservableObject {
         self.repository = repository
     }
     
-    func fetchEURRate() async throws -> Double {
-        
-        let rates = try await self.repository.fetchBitCoinRates()
-        return rates.rates["eur"]?.value ?? .zero
-    }
-    
     @MainActor func fetchCoins() async throws {
 
         let eurRate = try await self.fetchEURRate()
@@ -31,5 +25,19 @@ class CoinStore: ObservableObject {
             .map { $0.viewModel(eurRate: eurRate) }
         
         self.coins = Array(fetched.prefix(10))
+    }
+    
+    func loadDetails(forCoin coin: CoinViewModel) async throws -> CoinDetailViewModel {
+        
+        let details = try await self.repository.fetchDetails(for: coin.id)
+        
+        var result = details.toViewModel(locale: .init(identifier: "en_US"))
+        return result
+    }
+    
+    func fetchEURRate() async throws -> Double {
+        
+        let rates = try await self.repository.fetchBitCoinRates()
+        return rates.rates["eur"]?.value ?? .zero
     }
 }

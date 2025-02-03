@@ -23,4 +23,13 @@ struct MockCoinRepositoryTests {
         let rates = try await repository.fetchBitCoinRates()
         #expect(!rates.rates.isEmpty)
     }
+    
+    @Test func shouldFetchCoinDetails() async throws {
+        
+        let repository = MockCoinRepository()
+        let details = try await repository.fetchDetails(for: "bitcoin")
+        #expect(details.description["en"] != nil)
+        #expect(!details.links.homepage.isEmpty)
+        #expect(details.market_data.current_price["eur"] != nil)
+    }
 }

@@ -32,7 +32,7 @@ class MockCoinRepository: CoinRepository {
         let task = Task {
             
             /// simulate network request loading time
-            try await Task.sleep(for: .seconds(1.5))
+            try await Task.sleep(for: .seconds(1))
             
             if let data = self.loadJSONFileData(name: "coins") {
              
@@ -41,6 +41,24 @@ class MockCoinRepository: CoinRepository {
             }
             
             return []
+        }
+        
+        return try await task.value
+    }
+    
+    func fetchDetails(for coinId: String) async throws -> CoinDetailDTO {
+        
+        let task = Task {
+            
+            /// simulate network request loading time
+            try await Task.sleep(for: .seconds(0.3))
+            
+            if let data = self.loadJSONFileData(name: "data") {
+             
+                return try JSONDecoder().decode(CoinDetailDTO.self, from: data)
+            }
+            
+            throw NSError(domain: "network", code: -1)
         }
         
         return try await task.value

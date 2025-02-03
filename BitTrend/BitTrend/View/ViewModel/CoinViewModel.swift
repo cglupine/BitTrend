@@ -7,25 +7,28 @@
 
 import Foundation
 
-struct CoinViewModel: Identifiable {
+struct CoinViewModel: Identifiable, Equatable{
     
     let id: String
     let name: String
     let symbol: String
-    let ranking: Int
-    let btcPrice: Double
     let eurPrice: Double
     let thumbnailURLString: String
+    let largeImageURLString: String
+    
+    static func == (lhs: CoinViewModel, rhs: CoinViewModel) -> Bool {
+        
+        lhs.id == rhs.id
+    }
     
     static func mockBitCoin() -> Self {
         .init(
             id: "bitcoin",
             name: "Bitcoin",
             symbol: "BTC",
-            ranking: 1,
-            btcPrice: 1,
             eurPrice: 95832.34,
-            thumbnailURLString: "https://coin-images.coingecko.com/coins/images/1/standard/bitcoin.png?1696501400"
+            thumbnailURLString: "https://coin-images.coingecko.com/coins/images/1/standard/bitcoin.png?1696501400",
+            largeImageURLString: "https://coin-images.coingecko.com/coins/images/1/large/bitcoin.png?1696501400"
         )
     }
 }

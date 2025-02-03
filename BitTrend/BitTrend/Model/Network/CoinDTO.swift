@@ -22,17 +22,15 @@ struct CoinDTO: Decodable {
     let market_cap_rank: Int
     let price_btc: Double
     let thumb: String
-    let content: Content
-    let slug: String
+    let large: String
     
     func viewModel(eurRate: Double) -> CoinViewModel {
         
         .init(id: self.id,
               name: self.name,
               symbol: self.symbol,
-              ranking: self.market_cap_rank,
-              btcPrice: self.price_btc,
               eurPrice: self.price_btc * eurRate,
-              thumbnailURLString: self.thumb)
+              thumbnailURLString: self.thumb,
+              largeImageURLString: self.large)
     }
 }

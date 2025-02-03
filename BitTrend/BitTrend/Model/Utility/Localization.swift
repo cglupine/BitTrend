@@ -16,4 +16,6 @@ enum LocalizedKey: LocalizedStringKey {
     case loading = "loading.message"
     case errorRetry = "error.retry.message"
     case retry = "retry.action"
+    case description = "description.name"
+    case seeMore = "more.message"
 }
