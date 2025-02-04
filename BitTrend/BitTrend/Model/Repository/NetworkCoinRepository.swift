@@ -24,4 +24,8 @@ class NetworkCoinRepository: CoinRepository {
         throw NSError(domain: "network", code: -1)
     }
     
+    func fetchCharts(for coinId: String) async throws -> [ChartDTO.Entry] {
+        
+        return []
+    }
 }

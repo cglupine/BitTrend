@@ -74,6 +74,7 @@ struct CoinDetailView: View {
     
     @ViewBuilder private func detailView(for detail: CoinDetailViewModel?) -> some View {
 
+        CoinChartBox(coin: self.coin, chartData: detail?.chartData)
         
         CoinDescriptionBox(detail: detail)
             .padding(.top)

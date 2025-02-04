@@ -64,6 +64,25 @@ class MockCoinRepository: CoinRepository {
         return try await task.value
     }
     
+    func fetchCharts(for coinId: String) async throws -> [ChartDTO.Entry] {
+        
+        let task = Task {
+            
+            /// simulate network request loading time
+            try await Task.sleep(for: .seconds(0.5))
+            
+            if let data = self.loadJSONFileData(name: "chart") {
+             
+                let chart = try JSONDecoder().decode(ChartDTO.self, from: data)
+                return chart.prices
+            }
+            
+            return []
+        }
+        
+        return try await task.value
+    }
+    
     //MARK: - PRIVATE
     
     private func loadJSONFileData(name: String) -> Data? {
