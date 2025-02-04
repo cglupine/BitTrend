@@ -7,6 +7,14 @@
 
 import SwiftUI
 
+extension CoinDetailView {
+    
+    enum ViewStatus {
+        
+        case loading, completed(CoinDetailViewModel), failed
+    }
+}
+
 struct CoinDetailView: View {
     
     @Environment(\.openURL) private var openURL
@@ -22,27 +30,16 @@ struct CoinDetailView: View {
                 
                 CoinImageView(coin: self.coin, size: 150, useThumbnail: false)
                 
-                HStack(alignment: .firstTextBaseline, spacing: 4) {
-                    
-                    Text(self.coin.name)
-                        .font(.largeTitle)
-                        .fontWeight(.black)
-                    Text(self.coin.symbol)
-                        .font(.caption)
-                        .foregroundStyle(.gray)
-                }
-                
-                Text(self.coin.eurPrice, format: .currency(code: "EUR"))
-                    .font(.title)
-                    .fontWeight(.bold)
+                CoinInfoView(coin: self.coin)
                 
                 switch self.state {
                     
-                case .loading:
-                    ProgressView(LK.loading.rawValue)
-                    
                 case .failed:
                     ErrorView(action: self.fetchDetails)
+
+                case .loading:
+                    self.detailView(for: nil)
+                        .redacted(reason: .placeholder)
                     
                 case .completed(let details):
                     self.detailView(for: details)
@@ -60,7 +57,7 @@ struct CoinDetailView: View {
     
     //MARK: - PRIVATE
     
-    @MainActor private func fetchDetails() {
+    private func fetchDetails() {
         
         self.state = .loading
         
@@ -76,57 +73,11 @@ struct CoinDetailView: View {
         }
     }
     
-    @ViewBuilder private func detailView(for detail: CoinDetailViewModel) -> some View {
-        
-        VStack {
-            
-            GroupBox(LK.description.rawValue) {
-                
-                Text(self.htmlDescription(for: detail.description))
-                    .padding(.top, 8)
-                
-                HStack {
-                 
-                    Spacer()
-                    
-                    Link(destination: URL(string: detail.homepageURLString)!) {
-                        
-                        Label(LK.seeMore.rawValue, systemImage: "safari")
-                            .font(.headline)
-                    }
-                }
-                .padding(.top)
-            }
-            .padding(.top)
-        }
-    }
-    
-    @MainActor private func htmlDescription(for string: String) -> AttributedString {
-        
-        guard let nsAttributed = try? NSAttributedString(data: Data(string.utf8),
-                                                         options: [.documentType: NSAttributedString.DocumentType.html],
-                                                         documentAttributes: nil) else {
-            
-            return .init()
-        }
-        
-        guard var result = try? AttributedString(nsAttributed, including: \.uiKit) else {
-            
-            return .init()
-        }
-        
-        result.font = .body
-        result.foregroundColor = .primary
-        
-        return result
-    }
-}
+    @ViewBuilder private func detailView(for detail: CoinDetailViewModel?) -> some View {
 
-extension CoinDetailView {
-    
-    enum ViewStatus {
         
-        case loading, completed(CoinDetailViewModel), failed
+        CoinDescriptionBox(detail: detail)
+            .padding(.top)
     }
 }
 

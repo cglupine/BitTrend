@@ -1,6 +1,9 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
+    "#%lld" : {
+
+    },
     "app.name" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -62,7 +65,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "RETRY"
+            "value" : "Retry"
           }
         }
       }

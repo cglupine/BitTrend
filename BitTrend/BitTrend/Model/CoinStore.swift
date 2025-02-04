@@ -22,7 +22,7 @@ class CoinStore: ObservableObject {
 
         let eurRate = try await self.fetchEURRate()
         let fetched = try await self.repository.fetchCoins()
-            .map { $0.viewModel(eurRate: eurRate) }
+            .map { $0.viewModel(eurRate: eurRate, percentageChangeSymbol: "eur") }
         
         self.coins = Array(fetched.prefix(10))
     }
@@ -30,8 +30,10 @@ class CoinStore: ObservableObject {
     func loadDetails(forCoin coin: CoinViewModel) async throws -> CoinDetailViewModel {
         
         let details = try await self.repository.fetchDetails(for: coin.id)
+        let chart = try await self.repository.fetchCharts(for: coin.id)
         
         var result = details.toViewModel(locale: .init(identifier: "en_US"))
+        result.chartData = chart.map { $0.toViewModel() }
         return result
     }
     

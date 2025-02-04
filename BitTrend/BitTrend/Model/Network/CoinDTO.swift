@@ -9,10 +9,9 @@ import Foundation
 
 struct CoinDTO: Decodable {
     
-    struct Content: Decodable {
+    struct Data: Decodable {
         
-        let title: String
-        let description: String
+        let price_change_percentage_24h: [String: Double]
     }
     
     let id: String
@@ -23,13 +22,16 @@ struct CoinDTO: Decodable {
     let price_btc: Double
     let thumb: String
     let large: String
+    let data: Data
     
-    func viewModel(eurRate: Double) -> CoinViewModel {
+    func viewModel(eurRate: Double, percentageChangeSymbol: String) -> CoinViewModel {
         
         .init(id: self.id,
               name: self.name,
               symbol: self.symbol,
+              rank: self.market_cap_rank,
               eurPrice: self.price_btc * eurRate,
+              percentageChange: self.data.price_change_percentage_24h[percentageChangeSymbol] ?? .zero,
               thumbnailURLString: self.thumb,
               largeImageURLString: self.large)
     }
