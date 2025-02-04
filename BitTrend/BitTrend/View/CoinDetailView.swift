@@ -47,7 +47,6 @@ struct CoinDetailView: View {
                 
                 Spacer()
             }
-            .frame(maxWidth: .infinity)
             .padding()
         }
         .task {

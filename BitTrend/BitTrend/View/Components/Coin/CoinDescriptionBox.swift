@@ -17,7 +17,7 @@ struct CoinDescriptionBox: View {
             
             if let description = self.detail?.description {
                 
-                HTMLText(content: description)
+                Text(htmlString: description, font: .body, foregroundColor: .primary)
                     .padding(.top, 4)
                 
             } else {
