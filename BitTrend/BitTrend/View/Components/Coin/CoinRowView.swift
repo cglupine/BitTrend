@@ -15,17 +15,7 @@ struct CoinRowView: View {
         
         HStack {
             
-            AsyncImage(url: URL(string: self.coin.thumbnailURLString)) { image in
-                
-                image.resizable()
-                
-            } placeholder: {
-                
-                Image(systemName: "bitcoinsign.circle")
-                    .font(.system(size: 50))
-                    .foregroundStyle(.gray)
-            }
-            .frame(width: 50, height: 50)
+            CoinImageView(coin: self.coin, size: 50, useThumbnail: true)
             
             HStack(alignment: .firstTextBaseline, spacing: 4) {
              

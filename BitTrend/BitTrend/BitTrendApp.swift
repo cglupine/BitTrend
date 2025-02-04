@@ -10,10 +10,13 @@ import SwiftUI
 @main
 struct BitTrendApp: App {
     
+    @StateObject private var store = CoinStore(repository: MockCoinRepository())
+    
     var body: some Scene {
         
         WindowGroup {
             CoinsListView()
         }
+        .environmentObject(self.store)
     }
 }

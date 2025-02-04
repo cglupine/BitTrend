@@ -9,13 +9,8 @@ import SwiftUI
 
 struct CoinsListView: View {
     
-    enum Status {
-        
-        case loading, completed, failed
-    }
-    
-    @StateObject private var store = CoinStore(repository: MockCoinRepository())
-    @State private var state: Status = .loading
+    @EnvironmentObject private var store: CoinStore
+    @State private var state: ViewStatus = .loading
     
     var body: some View {
         
@@ -33,7 +28,10 @@ struct CoinsListView: View {
                 case .completed:
                     List(self.store.coins) { coin in
                         
-                        CoinRowView(coin: coin)
+                        NavigationLink(destination: CoinDetailView(coin: coin)) {
+                            
+                            CoinRowView(coin: coin)
+                        }
                     }
                 }
             }
@@ -63,6 +61,15 @@ struct CoinsListView: View {
     }
 }
 
+extension CoinsListView {
+    
+    enum ViewStatus {
+        
+        case loading, completed, failed
+    }
+}
+
 #Preview {
     CoinsListView()
+        .environmentObject(CoinStore(repository: MockCoinRepository()))
 }
