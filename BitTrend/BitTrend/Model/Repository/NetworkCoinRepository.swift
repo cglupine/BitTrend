@@ -66,11 +66,11 @@ final class NetworkCoinRepository: CoinRepository {
         return response
     }
     
-    func fetchCharts(for coinId: String) async throws -> [ChartDTO.Entry] {
+    func fetchCharts(for coinId: String, currencyCode: String, days: Int, precision: Int) async throws -> [ChartDTO.Entry] {
         
         let request = CoinHistoricalChartDataRequest(
             id: coinId,
-            query: .init(vs_currency: "eur", days: 7, precision: 2))
+            query: .init(vs_currency: currencyCode, days: days, precision: precision))
         let loader = NetworkRequestLoader(request: request,
                                           session: self.session,
                                           reachabilityService: self.reachabilityService)

@@ -13,7 +13,6 @@ struct CoinStoreTests {
     @Test func shouldFetchTopTenCoins() async throws {
      
         let store = CoinStore(repository: MockCoinRepository(
-            session: NetworkSessionFactory.createEphemeral(),
             reachabilityService: MockReachabilityService()))
         #expect(store.coins.isEmpty)
         

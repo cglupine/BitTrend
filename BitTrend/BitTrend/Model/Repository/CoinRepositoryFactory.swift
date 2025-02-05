@@ -15,8 +15,7 @@ struct CoinRepositoryFactory {
         
         if AppData.isMockEnabled() {
         
-            let session = NetworkSessionFactory.createEphemeral()
-            return MockCoinRepository(session: session, reachabilityService: reachabilityService)
+            return MockCoinRepository(reachabilityService: reachabilityService)
         }
         
         let session = NetworkSessionFactory.create()

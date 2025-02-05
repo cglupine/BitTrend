@@ -7,23 +7,11 @@
 
 import Foundation
 
-struct MockResponseData {
-    
-    let result: Result<Data, NetworkError>
-    let statusCode: Int
-    
-    init(result: Result<Data, NetworkError>, statusCode: Int) {
-     
-        self.result = result
-        self.statusCode = statusCode
-    }
-}
-
-typealias MockResponse = (URLRequest) -> MockResponseData
+typealias MockResponse = (statusCode: Int, data: Data)
 
 class MockURLProtocol: URLProtocol {
     
-    static var requestHandler: MockResponse?
+    static var requestHandler: ((URLRequest) throws -> MockResponse)?
     
     override class func canInit(with request: URLRequest) -> Bool {
         true
@@ -48,10 +36,8 @@ class MockURLProtocol: URLProtocol {
             return
         }
         
-        let response = handler(self.request)
-        switch response.result {
-            
-        case .success(let data):
+        do {
+            let response = try handler(self.request)
             guard let httpURLResponse = HTTPURLResponse(url: url,
                                                         statusCode: response.statusCode,
                                                         httpVersion: nil,
@@ -62,27 +48,27 @@ class MockURLProtocol: URLProtocol {
             }
             
             self.client?.urlProtocol(self, didReceive: httpURLResponse, cacheStoragePolicy: .notAllowed)
-            self.client?.urlProtocol(self, didLoad: data)
+            self.client?.urlProtocol(self, didLoad: response.data)
             self.client?.urlProtocolDidFinishLoading(self)
             
-        case .failure(let error):
+        } catch {
+            
             self.client?.urlProtocol(self, didFailWithError: error)
         }
     }
     
     override func stopLoading() {}
     
-    static func localMockJsonResponseData(for requestType: Any, resultSuffix: String) -> MockResponseData {
+    static func localMockJsonResponseData(for requestType: Any, resultSuffix: String) throws -> MockResponse {
     
         let fileName = String(describing: requestType).appending("_\(resultSuffix)")
         
         if let path = Bundle.main.path(forResource: fileName, ofType: "json"),
            let data = try? Data(contentsOf: URL(fileURLWithPath: path)) {
         
-            return MockResponseData(result: .success(data), statusCode: 200)
+            return (statusCode: 200, data: data)
         }
         
-        return MockResponseData(result: .failure(.generic(code: .cannotDecodeContentData)),
-                                statusCode: URLError.cannotDecodeContentData.rawValue)
+        throw URLError(.cannotDecodeContentData)
     }
 }

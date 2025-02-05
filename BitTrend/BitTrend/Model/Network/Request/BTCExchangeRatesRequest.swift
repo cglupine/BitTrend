@@ -22,3 +22,35 @@ struct BTCExchangeRatesRequest: JSONNetworkRequest {
         AppData.baseURLString() + "/exchange_rates"
     }
 }
+
+extension BTCExchangeRatesRequest {
+    
+    enum Outcome: String {
+        
+        case success
+        case empty
+        case failure
+    }
+    
+    class iMockURLProtocol: MockURLProtocol {
+        
+        static var outcome: Outcome = .empty
+        
+        override func startLoading() {
+            
+            iMockURLProtocol.requestHandler = { request in
+                
+                switch Self.outcome {
+                    
+                case .failure:
+                    throw URLError(.badServerResponse)
+
+                default:
+                    return try Self.localMockJsonResponseData(for: BTCExchangeRatesRequest.self, resultSuffix: Self.outcome.rawValue)
+                }
+            }
+            
+            super.startLoading()
+        }
+    }
+}

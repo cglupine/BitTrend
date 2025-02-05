@@ -30,7 +30,9 @@ struct NetworkRequestsTest {
         #expect(try request.makeQuery() == nil)
         
         let urlRequest = try request.makeURLRequest()
-        let _ = try #require(URL(string: request.absolutePath))
+        #expect(throws: Never.self) {
+            try #require(URL(string: request.absolutePath))
+        }
         #expect(urlRequest.url?.absoluteString == request.absolutePath)
         #expect(urlRequest.httpMethod == "GET")
         #expect(urlRequest.allHTTPHeaderFields == headers)
@@ -45,7 +47,9 @@ struct NetworkRequestsTest {
         #expect(try request.makeQuery() == nil)
         
         let urlRequest = try request.makeURLRequest()
-        let _ = try #require(URL(string: request.absolutePath))
+        #expect(throws: Never.self) {
+            try #require(URL(string: request.absolutePath))
+        }
         #expect(urlRequest.url?.absoluteString == request.absolutePath)
         #expect(urlRequest.httpMethod == "GET")
         #expect(urlRequest.allHTTPHeaderFields == headers)
@@ -64,7 +68,9 @@ struct NetworkRequestsTest {
         #expect(query["developer_data"] as? Bool == request.query.developer_data)
         
         let urlRequest = try request.makeURLRequest()
-        let url = try #require(URL(string: request.absolutePath))
+        #expect(throws: Never.self) {
+            try #require(URL(string: request.absolutePath))
+        }
         #expect(urlRequest.url?.path() == urlRequest.url?.path())
         #expect(urlRequest.httpMethod == "GET")
         #expect(urlRequest.allHTTPHeaderFields == headers)

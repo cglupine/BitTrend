@@ -33,7 +33,7 @@ struct NetworkSessionFactory {
         }
     }
     
-    static func createEphemeral(with mockProtocol: MockURLProtocol.Type = MockURLProtocol.self) -> URLSession {
+    static func createEphemeral(with mockProtocol: MockURLProtocol.Type) -> URLSession {
         
         let sessionConfiguration = URLSessionConfiguration.ephemeral
         sessionConfiguration.protocolClasses = [mockProtocol]
