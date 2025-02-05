@@ -24,7 +24,7 @@ struct CoinDTO: Decodable {
     let large: String
     let data: Data
     
-    func viewModel(eurRate: Double, percentageChangeSymbol: String) -> CoinViewModel {
+    func toModel(eurRate: Double, percentageChangeSymbol: String) -> Coin {
         
         .init(id: self.id,
               name: self.name,

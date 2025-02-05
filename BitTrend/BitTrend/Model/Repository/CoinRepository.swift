@@ -9,6 +9,9 @@ import Foundation
 
 protocol CoinRepository {
     
+    init(reachabilityService: ReachabilityService)
+    
+    func cancel()
     func fetchBitCoinRates() async throws -> RatesDTO
     func fetchCoins() async throws -> [CoinDTO]
     func fetchDetails(for coinId: String) async throws -> CoinDetailDTO

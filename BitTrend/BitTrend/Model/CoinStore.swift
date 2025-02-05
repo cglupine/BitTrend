@@ -7,9 +7,9 @@
 
 import Foundation
 
-class CoinStore: ObservableObject {
+@Observable class CoinStore {
     
-    @Published var coins: [CoinViewModel] = []
+    var coins: [Coin] = []
     
     private let repository: CoinRepository
     
@@ -22,18 +22,18 @@ class CoinStore: ObservableObject {
 
         let eurRate = try await self.fetchEURRate()
         let fetched = try await self.repository.fetchCoins()
-            .map { $0.viewModel(eurRate: eurRate, percentageChangeSymbol: "eur") }
+            .map { $0.toModel(eurRate: eurRate, percentageChangeSymbol: "eur") }
         
         self.coins = Array(fetched.prefix(10))
     }
     
-    func loadDetails(forCoin coin: CoinViewModel) async throws -> CoinDetailViewModel {
+    func loadDetails(forCoin coin: Coin) async throws -> CoinDetail {
         
         let details = try await self.repository.fetchDetails(for: coin.id)
         let chart = try await self.repository.fetchCharts(for: coin.id)
         
-        var result = details.toViewModel(locale: .init(identifier: "en_US"))
-        result.chartData = chart.map { $0.toViewModel() }
+        var result = details.toModel(languageCode: Locale.current.language.languageCode?.identifier ?? "en")
+        result.chartData = chart.map { $0.toModel() }
         return result
     }
     
@@ -41,5 +41,10 @@ class CoinStore: ObservableObject {
         
         let rates = try await self.repository.fetchBitCoinRates()
         return rates.rates["eur"]?.value ?? .zero
+    }
+    
+    func cancelDetailsFetching() {
+        
+        self.repository.cancel()
     }
 }

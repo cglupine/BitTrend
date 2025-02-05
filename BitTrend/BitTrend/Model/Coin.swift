@@ -1,5 +1,5 @@
 //
-//  CoinViewModel.swift
+//  Coin.swift
 //  BitTrend
 //
 //  Created by Gabriele Carbutto on 02/02/25.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct CoinViewModel: Identifiable, Equatable{
+struct Coin: Identifiable, Equatable {
     
     let id: String
     let name: String
@@ -18,14 +18,14 @@ struct CoinViewModel: Identifiable, Equatable{
     let thumbnailURLString: String
     let largeImageURLString: String
     
-    static func == (lhs: CoinViewModel, rhs: CoinViewModel) -> Bool {
+    static func == (lhs: Coin, rhs: Coin) -> Bool {
         
         lhs.id == rhs.id
     }
     
     static func mockBitCoin() -> Self {
         .init(
-            id: "bitcoin",
+            id: UUID().uuidString,
             name: "Bitcoin",
             symbol: "BTC",
             rank: 1,
@@ -37,11 +37,10 @@ struct CoinViewModel: Identifiable, Equatable{
     }
 }
 
-extension Array where Element == CoinViewModel {
+extension Array where Element == Coin {
     
-    static func skeleton(size: Int) -> [CoinViewModel] {
+    static func skeleton(size: Int) -> [Coin] {
         
-        Array(repeating: .mockBitCoin(), count: size)
+        (0...size).map { _ in .mockBitCoin() }
     }
 }
-

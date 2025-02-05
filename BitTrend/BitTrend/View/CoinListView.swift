@@ -7,9 +7,17 @@
 
 import SwiftUI
 
+extension CoinsListView {
+    
+    enum ViewStatus {
+        
+        case loading, completed, failed
+    }
+}
+
 struct CoinsListView: View {
     
-    @EnvironmentObject private var store: CoinStore
+    @Environment(CoinStore.self) private var store: CoinStore
     @State private var state: ViewStatus = .loading
     
     var body: some View {
@@ -37,9 +45,8 @@ struct CoinsListView: View {
             }
             .navigationTitle(LK.appName.rawValue)
         }
-        .task {
-            self.fetchCoins()
         }
+        .onAppear(perform: self.fetchCoins)
     }
     
     //MARK: - PRIVATE
@@ -61,15 +68,7 @@ struct CoinsListView: View {
     }
 }
 
-extension CoinsListView {
-    
-    enum ViewStatus {
-        
-        case loading, completed, failed
-    }
-}
-
 #Preview {
     CoinsListView()
-        .environmentObject(CoinStore(repository: MockCoinRepository()))
+        .environment(CoinStore(repository: MockCoinRepository(reachabilityService: MockReachabilityService())))
 }

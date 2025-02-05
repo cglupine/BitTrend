@@ -7,7 +7,19 @@
 
 import Foundation
 
-class MockCoinRepository: CoinRepository {
+final class MockCoinRepository: CoinRepository {
+    
+    private let reachabilityService: ReachabilityService
+    
+    init(reachabilityService: ReachabilityService) {
+        
+        self.reachabilityService = reachabilityService
+    }
+    
+    func cancel() {
+    
+        #warning("TODO:")
+    }
     
     func fetchBitCoinRates() async throws -> RatesDTO {
         

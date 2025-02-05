@@ -11,16 +11,16 @@ extension CoinDetailView {
     
     enum ViewStatus {
         
-        case loading, completed(CoinDetailViewModel), failed
+        case loading, completed(CoinDetail), failed
     }
 }
 
 struct CoinDetailView: View {
     
     @Environment(\.openURL) private var openURL
-    @EnvironmentObject private var store: CoinStore
+    @Environment(CoinStore.self) private var store: CoinStore
     @State private var state: ViewStatus = .loading
-    let coin: CoinViewModel
+    let coin: Coin
     
     var body: some View {
         
@@ -49,9 +49,8 @@ struct CoinDetailView: View {
             }
             .padding()
         }
-        .task {
-            self.fetchDetails()
-        }
+        .onAppear(perform: self.fetchDetails)
+        .onDisappear(perform: self.store.cancelDetailsFetching)
     }
     
     //MARK: - PRIVATE
@@ -72,7 +71,7 @@ struct CoinDetailView: View {
         }
     }
     
-    @ViewBuilder private func detailView(for detail: CoinDetailViewModel?) -> some View {
+    @ViewBuilder private func detailView(for detail: CoinDetail?) -> some View {
 
         CoinChartBox(coin: self.coin, chartData: detail?.chartData)
         
@@ -83,5 +82,5 @@ struct CoinDetailView: View {
 
 #Preview {
     CoinDetailView(coin: .mockBitCoin())
-        .environmentObject(CoinStore(repository: MockCoinRepository()))
+        .environment(CoinStore(repository: MockCoinRepository(reachabilityService: MockReachabilityService())))
 }

@@ -10,8 +10,8 @@ import Charts
 
 struct CoinChartView: View {
     
-    let coin: CoinViewModel
-    let data: [CoinDetailViewModel.ChartData]?
+    let coin: Coin
+    let data: [ChartEntry]?
     
     var body: some View {
         
@@ -74,6 +74,6 @@ struct CoinChartView: View {
 }
 
 #Preview {
-    CoinChartView(coin: .mockBitCoin(), data: CoinDetailViewModel.ChartData.mock())
+    CoinChartView(coin: .mockBitCoin(), data: ChartEntry.mock())
         .frame(height: 100)
 }

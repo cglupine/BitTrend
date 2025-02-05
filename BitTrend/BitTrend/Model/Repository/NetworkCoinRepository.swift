@@ -8,6 +8,19 @@
 import Foundation
 
 class NetworkCoinRepository: CoinRepository {
+final class NetworkCoinRepository: CoinRepository {
+    
+    private let reachabilityService: ReachabilityService
+    private let session = NetworkSessionFactory.create(withConfiguration: .default)
+    
+    init(reachabilityService: ReachabilityService) {
+        
+        self.reachabilityService = reachabilityService
+    }
+    
+    func cancel() {
+        
+    }
     
     func fetchBitCoinRates() async throws -> RatesDTO {
         

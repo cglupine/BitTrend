@@ -9,8 +9,8 @@ import SwiftUI
 
 struct CoinChartBox: View {
     
-    let coin: CoinViewModel
-    let chartData: [CoinDetailViewModel.ChartData]?
+    let coin: Coin
+    let chartData: [ChartEntry]?
     
     var body: some View {
         GroupBox {
@@ -31,5 +31,5 @@ struct CoinChartBox: View {
 }
 
 #Preview {
-    CoinChartBox(coin: .mockBitCoin(), chartData: CoinDetailViewModel.ChartData.mock())
+    CoinChartBox(coin: .mockBitCoin(), chartData: ChartEntry.mock())
 }

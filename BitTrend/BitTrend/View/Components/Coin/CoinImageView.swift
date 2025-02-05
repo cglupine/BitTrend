@@ -9,7 +9,7 @@ import SwiftUI
 
 struct CoinImageView: View {
     
-    let coin: CoinViewModel
+    let coin: Coin
     let size: CGFloat
     let useThumbnail: Bool
     

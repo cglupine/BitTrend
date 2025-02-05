@@ -14,7 +14,7 @@ struct ChartDTO: Decodable {
         let date: Date
         let price: Double
         
-        func toViewModel() -> CoinDetailViewModel.ChartData {
+        func toModel() -> ChartEntry {
             
             .init(date: self.date, amount: self.price)
         }

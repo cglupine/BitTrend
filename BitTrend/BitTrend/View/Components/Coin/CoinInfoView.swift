@@ -9,7 +9,7 @@ import SwiftUI
 
 struct CoinInfoView: View {
     
-    let coin: CoinViewModel
+    let coin: Coin
     
     var body: some View {
                 
