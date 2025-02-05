@@ -48,6 +48,7 @@ struct CoinsListView: View {
                             }
                             .disabled(self.isLoading)
                         }
+                        .accessibilityIdentifier("list")
                     }
                 }
             }
