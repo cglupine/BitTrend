@@ -1,0 +1,37 @@
+{
+  "configurations" : [
+    {
+      "id" : "C7BB9FDA-C621-4615-8503-CA4754EBE888",
+      "name" : "Test Scheme Action",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "targetForVariableExpansion" : {
+      "containerPath" : "container:BitTrend.xcodeproj",
+      "identifier" : "13F8F8B72D4F741400446265",
+      "name" : "BitTrend"
+    }
+  },
+  "testTargets" : [
+    {
+      "parallelizable" : false,
+      "target" : {
+        "containerPath" : "container:BitTrend.xcodeproj",
+        "identifier" : "13F8F8C82D4F741500446265",
+        "name" : "BitTrendTests"
+      }
+    },
+    {
+      "parallelizable" : true,
+      "target" : {
+        "containerPath" : "container:BitTrend.xcodeproj",
+        "identifier" : "13F8F8D22D4F741500446265",
+        "name" : "BitTrendUITests"
+      }
+    }
+  ],
+  "version" : 1
+}
