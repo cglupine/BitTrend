@@ -81,6 +81,17 @@
         }
       }
     },
+    "error.connectivity.message" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No Internet access, please check your devide connectivity"
+          }
+        }
+      }
+    },
     "error.retry.message" : {
       "extractionState" : "manual",
       "localizations" : {

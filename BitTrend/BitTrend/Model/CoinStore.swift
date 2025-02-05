@@ -18,33 +18,37 @@ import Foundation
         self.repository = repository
     }
     
-    @MainActor func fetchCoins() async throws {
+    @MainActor func loadTopTenCoins() async throws {
 
-        let eurRate = try await self.fetchEURRate()
+        let eurRate = try? await self.loadEURRate()
         let fetched = try await self.repository.fetchCoins()
-            .map { $0.toModel(eurRate: eurRate, percentageChangeSymbol: "eur") }
+            .map { $0.toModel(eurRate: eurRate ?? 0, percentageChangeSymbol: "eur") }
         
         self.coins = Array(fetched.prefix(10))
     }
     
-    func loadDetails(forCoin coin: Coin) async throws -> CoinDetail {
+    func loadDetailsTillLastWeek(forCoin coin: Coin) async throws -> CoinDetail {
         
         let details = try await self.repository.fetchDetails(for: coin.id)
-        let chart = try await self.repository.fetchCharts(for: coin.id)
+        let chart = try await self.repository.fetchCharts(
+            for: coin.id,
+            currencyCode: "eur",
+            days: 7,
+            precision: 2)
         
         var result = details.toModel(languageCode: Locale.current.language.languageCode?.identifier ?? "en")
         result.chartData = chart.map { $0.toModel() }
         return result
     }
     
-    func fetchEURRate() async throws -> Double {
-        
-        let rates = try await self.repository.fetchBitCoinRates()
-        return rates.rates["eur"]?.value ?? .zero
-    }
-    
     func cancelDetailsFetching() {
         
         self.repository.cancel()
     }
+
+    func loadEURRate() async throws -> Double {
+        
+        let rates = try await self.repository.fetchBitCoinRates()
+        return rates.rates["eur"]?.value ?? .zero
+    }    
 }

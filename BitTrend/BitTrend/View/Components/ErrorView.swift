@@ -9,6 +9,7 @@ import SwiftUI
 
 struct ErrorView: View {
     
+    let message: LocalizedStringKey
     let action: () -> Void
     
     var body: some View {
@@ -19,8 +20,9 @@ struct ErrorView: View {
                 Image(systemName: "exclamationmark.circle.fill")
                     .font(.system(size: 30))
                 
-                Text(LK.errorRetry.rawValue)
+                Text(self.message)
                     .font(.subheadline)
+                    .multilineTextAlignment(.center)
                 
                 Button(LK.retry.rawValue, action: self.action)
                     .buttonStyle(.borderedProminent)
@@ -30,5 +32,5 @@ struct ErrorView: View {
 }
 
 #Preview {
-    ErrorView() {}
+    ErrorView(message: LK.errorRetry.rawValue) {}
 }

@@ -35,7 +35,7 @@ struct CoinDetailView: View {
                 switch self.state {
                     
                 case .failed:
-                    ErrorView(action: self.fetchDetails)
+                    ErrorView(message: LK.errorRetry.rawValue, action: self.fetchDetails)
 
                 case .loading:
                     self.detailView(for: nil)
@@ -61,7 +61,7 @@ struct CoinDetailView: View {
         
         Task {
             do {
-                let details = try await self.store.loadDetails(forCoin: self.coin)
+                let details = try await self.store.loadDetailsTillLastWeek(forCoin: self.coin)
                 self.state = .completed(details)
                 
             } catch {
@@ -84,7 +84,6 @@ struct CoinDetailView: View {
     CoinDetailView(coin: .mockBitCoin())
         .environment(
             CoinStore(repository: MockCoinRepository(
-                session: NetworkSessionFactory.createEphemeral(),
                 reachabilityService: MockReachabilityService())
             )
         )
