@@ -70,5 +70,10 @@ struct CoinsListView: View {
 
 #Preview {
     CoinsListView()
-        .environment(CoinStore(repository: MockCoinRepository(reachabilityService: MockReachabilityService())))
+        .environment(
+            CoinStore(repository: MockCoinRepository(
+                session: NetworkSessionFactory.createEphemeral(),
+                reachabilityService: MockReachabilityService())
+            )
+        )
 }

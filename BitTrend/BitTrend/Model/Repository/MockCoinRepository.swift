@@ -9,7 +9,9 @@ import Foundation
 
 final class MockCoinRepository: CoinRepository {
     
+    private static let delayRange = 0.1...1
     private let reachabilityService: ReachabilityService
+    private var pendingLoader: CancellableNetworkRequestLoader?
     
     init(reachabilityService: ReachabilityService) {
         
@@ -18,92 +20,100 @@ final class MockCoinRepository: CoinRepository {
     
     func cancel() {
     
-        #warning("TODO:")
+        self.pendingLoader?.cancel()
     }
     
     func fetchBitCoinRates() async throws -> RatesDTO {
         
-        let task = Task {
-            
-            /// simulate network request loading time
-            try await Task.sleep(for: .seconds(0.3))
-            
-            if let data = self.loadJSONFileData(name: "rates") {
-                
-                return try JSONDecoder().decode(RatesDTO.self, from: data)
-            }
-            
-            return RatesDTO.empty()
+        let session = NetworkSessionFactory.createEphemeral(with: BTCExchangeRatesRequest.iMockURLProtocol.self)
+        
+        let request = BTCExchangeRatesRequest()
+        let loader = NetworkRequestLoader(request: request,
+                                          session: session,
+                                          reachabilityService: self.reachabilityService)
+        self.pendingLoader = loader
+        
+        /// simulate network request loading time
+        try await Task.sleep(for: .seconds(Double.random(in: Self.delayRange)))
+        
+        if Task.isCancelled {
+            throw CancellationError()
         }
         
-        return try await task.value
+        let response = try await loader.loadResponse()
+        self.pendingLoader = nil
+        
+        return response
     }
     
     func fetchCoins() async throws -> [CoinDTO] {
         
-        let task = Task {
-            
-            /// simulate network request loading time
-            try await Task.sleep(for: .seconds(1))
-            
-            if let data = self.loadJSONFileData(name: "coins") {
-             
-                let trend = try JSONDecoder().decode(TrendDTO.self, from: data)
-                return trend.coins.map { $0.item }
-            }
-            
-            return []
+        let session = NetworkSessionFactory.createEphemeral(with: TrendingSearchListRequest.iMockURLProtocol.self)
+        
+        let request = TrendingSearchListRequest()
+        let loader = NetworkRequestLoader(request: request,
+                                          session: session,
+                                          reachabilityService: self.reachabilityService)
+        self.pendingLoader = loader
+        
+        /// simulate network request loading time
+        try await Task.sleep(for: .seconds(Double.random(in: Self.delayRange)))
+
+        if Task.isCancelled {
+            throw CancellationError()
         }
         
-        return try await task.value
+        let response = try await loader.loadResponse()
+        self.pendingLoader = nil
+        
+        return response.coins.map { $0.item }
     }
     
     func fetchDetails(for coinId: String) async throws -> CoinDetailDTO {
         
-        let task = Task {
-            
-            /// simulate network request loading time
-            try await Task.sleep(for: .seconds(0.3))
-            
-            if let data = self.loadJSONFileData(name: "data") {
-             
-                return try JSONDecoder().decode(CoinDetailDTO.self, from: data)
-            }
-            
-            throw NSError(domain: "network", code: -1)
+        let session = NetworkSessionFactory.createEphemeral(with: CoinDataRequest.iMockURLProtocol.self)
+        
+        let request = CoinDataRequest(id: coinId)
+        let loader = NetworkRequestLoader(request: request,
+                                          session: session,
+                                          reachabilityService: self.reachabilityService)
+        self.pendingLoader = loader
+        
+        /// simulate network request loading time
+        try await Task.sleep(for: .seconds(Double.random(in: Self.delayRange)))
+
+        if Task.isCancelled {
+            throw CancellationError()
         }
         
-        return try await task.value
+        let response = try await loader.loadResponse()
+        self.pendingLoader = nil
+        
+        return response
     }
     
-    func fetchCharts(for coinId: String) async throws -> [ChartDTO.Entry] {
+    func fetchCharts(for coinId: String, currencyCode: String, days: Int, precision: Int) async throws -> [ChartDTO.Entry] {
+
+        let session = NetworkSessionFactory.createEphemeral(with: CoinHistoricalChartDataRequest.iMockURLProtocol.self)
         
-        let task = Task {
-            
-            /// simulate network request loading time
-            try await Task.sleep(for: .seconds(0.5))
-            
-            if let data = self.loadJSONFileData(name: "chart") {
-             
-                let chart = try JSONDecoder().decode(ChartDTO.self, from: data)
-                return chart.prices
-            }
-            
-            return []
+        let request = CoinHistoricalChartDataRequest(
+            id: coinId,
+            query: .init(vs_currency: currencyCode, days: days, precision: precision))
+        let loader = NetworkRequestLoader(request: request,
+                                          session: session,
+                                          reachabilityService: self.reachabilityService)
+        self.pendingLoader = loader
+        
+        /// simulate network request loading time
+        try await Task.sleep(for: .seconds(Double.random(in: Self.delayRange)))
+
+        if Task.isCancelled {
+            throw CancellationError()
         }
         
-        return try await task.value
-    }
-    
-    //MARK: - PRIVATE
-    
-    private func loadJSONFileData(name: String) -> Data? {
+        let response = try await loader.loadResponse()
+        self.pendingLoader = nil
         
-        if let path = Bundle.main.path(forResource: name, ofType: "json") {
-           
-            return try? Data(contentsOf: URL(fileURLWithPath: path))
-        }
-        
-        return nil
+        return response.prices
     }
 }

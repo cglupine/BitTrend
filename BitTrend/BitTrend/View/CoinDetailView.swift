@@ -82,5 +82,10 @@ struct CoinDetailView: View {
 
 #Preview {
     CoinDetailView(coin: .mockBitCoin())
-        .environment(CoinStore(repository: MockCoinRepository(reachabilityService: MockReachabilityService())))
+        .environment(
+            CoinStore(repository: MockCoinRepository(
+                session: NetworkSessionFactory.createEphemeral(),
+                reachabilityService: MockReachabilityService())
+            )
+        )
 }

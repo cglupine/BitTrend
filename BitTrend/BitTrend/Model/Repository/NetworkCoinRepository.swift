@@ -7,38 +7,78 @@
 
 import Foundation
 
-class NetworkCoinRepository: CoinRepository {
 final class NetworkCoinRepository: CoinRepository {
     
+    private let session: URLSession
     private let reachabilityService: ReachabilityService
-    private let session = NetworkSessionFactory.create(withConfiguration: .default)
+    private var pendingLoader: CancellableNetworkRequestLoader?
     
-    init(reachabilityService: ReachabilityService) {
+    init(session: URLSession, reachabilityService: ReachabilityService) {
         
+        self.session = session
         self.reachabilityService = reachabilityService
     }
     
     func cancel() {
         
+        self.pendingLoader?.cancel()
     }
     
     func fetchBitCoinRates() async throws -> RatesDTO {
         
-        .init(rates: [:])
+        let request = BTCExchangeRatesRequest()
+        let loader = NetworkRequestLoader(request: request,
+                                          session: self.session,
+                                          reachabilityService: self.reachabilityService)
+        self.pendingLoader = loader
+        
+        let response = try await loader.loadResponse()
+        self.pendingLoader = nil
+        
+        return response
     }
     
     func fetchCoins() async throws -> [CoinDTO] {
         
-        return []
+        let request = TrendingSearchListRequest()
+        let loader = NetworkRequestLoader(request: request,
+                                          session: self.session,
+                                          reachabilityService: self.reachabilityService)
+        self.pendingLoader = loader
+        
+        let response = try await loader.loadResponse()
+        self.pendingLoader = nil
+        
+        return response.coins.map { $0.item }
     }
     
     func fetchDetails(for coinId: String) async throws -> CoinDetailDTO {
         
-        throw NSError(domain: "network", code: -1)
+        let request = CoinDataRequest(id: coinId)
+        let loader = NetworkRequestLoader(request: request,
+                                          session: self.session,
+                                          reachabilityService: self.reachabilityService)
+        self.pendingLoader = loader
+        
+        let response = try await loader.loadResponse()
+        self.pendingLoader = nil
+        
+        return response
     }
     
-    func fetchCharts(for coinId: String) async throws -> [ChartDTO.Entry] {
+    func fetchCharts(for coinId: String, currencyCode: String, days: Int, precision: Int) async throws -> [ChartDTO.Entry] {
         
-        return []
+        let request = CoinHistoricalChartDataRequest(
+            id: coinId,
+            query: .init(vs_currency: currencyCode, days: days, precision: precision))
+        let loader = NetworkRequestLoader(request: request,
+                                          session: self.session,
+                                          reachabilityService: self.reachabilityService)
+        self.pendingLoader = loader
+        
+        let response = try await loader.loadResponse()
+        self.pendingLoader = nil
+        
+        return response.prices
     }
 }

@@ -12,10 +12,11 @@ struct CoinStoreTests {
 
     @Test func shouldFetchTopTenCoins() async throws {
      
-        let store = CoinStore(repository: MockCoinRepository())
+        let store = CoinStore(repository: MockCoinRepository(
+            reachabilityService: MockReachabilityService()))
         #expect(store.coins.isEmpty)
         
-        try await store.fetchCoins()
+        try await store.loadTopTenCoins()
         #expect(store.coins.count == 10)
     }
 }
