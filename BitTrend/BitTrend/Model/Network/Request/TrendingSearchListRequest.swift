@@ -9,13 +9,13 @@ import Foundation
 
 struct TrendingSearchListRequest: JSONNetworkRequest {
     
-    typealias HeadersDataType = NetworkEmptyDataType
-    typealias QueryDataType = NetworkEmptyDataType
+    typealias HeadersDataType = NetworkEmptyDTO
+    typealias QueryDataType = NetworkEmptyDTO
     typealias ResponseDataType = TrendDTO
     
     let method: HTTPMethod = .GET
-    let headers = NetworkEmptyDataType()
-    let query = NetworkEmptyDataType()
+    let headers = NetworkEmptyDTO()
+    let query = NetworkEmptyDTO()
     
     var absolutePath: String {
        

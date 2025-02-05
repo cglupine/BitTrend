@@ -19,9 +19,6 @@ struct URLResponseValidator {
         case 404:
             throw NetworkError.notFound
             
-        case URLError.notConnectedToInternet.rawValue:
-            throw NetworkError.noInternetConnection
-            
         default:
             throw NetworkError.generic(code: .init(rawValue: response.statusCode))
         }

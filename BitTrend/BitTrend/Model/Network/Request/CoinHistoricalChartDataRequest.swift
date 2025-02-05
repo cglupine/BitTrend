@@ -9,12 +9,12 @@ import Foundation
 
 struct CoinHistoricalChartDataRequest: JSONNetworkRequest {
     
-    typealias HeadersDataType = NetworkEmptyDataType
+    typealias HeadersDataType = NetworkEmptyDTO
     typealias QueryDataType = CoinHistoricalChartDataQueryDTO
     typealias ResponseDataType = ChartDTO
     
     let method: HTTPMethod = .GET
-    let headers = NetworkEmptyDataType()
+    let headers = NetworkEmptyDTO()
     let id: String
     let query: CoinHistoricalChartDataQueryDTO
     

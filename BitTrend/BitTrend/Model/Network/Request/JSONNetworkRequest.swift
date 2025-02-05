@@ -15,7 +15,7 @@ extension JSONNetworkRequest where ResponseDataType: Decodable {
         
         var dictionary: [String: String]!
         
-        if !(self.headers is NetworkEmptyDataType) {
+        if !(self.headers is NetworkEmptyDTO) {
             
             dictionary = try JSONSerialization.jsonObject(with: try JSONEncoder().encode(self.headers)) as? [String : String]
             
@@ -24,7 +24,7 @@ extension JSONNetworkRequest where ResponseDataType: Decodable {
             dictionary = [:]
         }
         
-        dictionary["accept"] = "application/json"
+        dictionary["Accept"] = "application/json"
         dictionary["x-cg-demo-api-key"] = AppData.apiKey()
         
         return dictionary
@@ -32,7 +32,7 @@ extension JSONNetworkRequest where ResponseDataType: Decodable {
     
     func makeQuery() throws -> [String : Any]? {
         
-        guard !(self.query is NetworkEmptyDataType) else { return nil }
+        guard !(self.query is NetworkEmptyDTO) else { return nil }
             
         let queryDictionary = try JSONSerialization.jsonObject(with: try JSONEncoder().encode(self.query))
         
