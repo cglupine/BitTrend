@@ -48,6 +48,7 @@ struct CoinDetailView: View {
                 Spacer()
             }
             .padding()
+            .transition(.opacity)
         }
         .onAppear(perform: self.fetchDetails)
         .onDisappear(perform: self.store.cancelDetailsFetching)
@@ -62,11 +63,11 @@ struct CoinDetailView: View {
         Task {
             do {
                 let details = try await self.store.loadDetailsTillLastWeek(forCoin: self.coin)
-                self.state = .completed(details)
+                withAnimation { self.state = .completed(details) }
                 
             } catch {
                 
-                self.state = .failed
+                withAnimation { self.state = .failed }
             }
         }
     }

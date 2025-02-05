@@ -33,18 +33,26 @@ struct CoinsListView: View {
                     ErrorView(message: message, action: self.fetchCoins)
                     
                 default:
-                    List(self.isLoading ? .skeleton(size: 10) : self.store.coins) { coin in
+                    if !self.isLoading, self.store.coins.isEmpty {
                         
-                        NavigationLink(destination: CoinDetailView(coin: coin)) {
+                        ErrorView(message: LK.noData.rawValue, action: self.fetchCoins)
+                        
+                    } else {
+                        
+                        List(self.isLoading ? .skeleton(size: 10) : self.store.coins) { coin in
                             
-                            CoinRowView(coin: coin)
-                                .redacted(reason: (self.isLoading ? .placeholder : []))
+                            NavigationLink(destination: CoinDetailView(coin: coin)) {
+                                
+                                CoinRowView(coin: coin)
+                                    .redacted(reason: (self.isLoading ? .placeholder : []))
+                            }
+                            .disabled(self.isLoading)
                         }
-                        .disabled(self.isLoading)
                     }
                 }
             }
             .navigationTitle(LK.topTenCoins.rawValue)
+            .transition(.opacity)
         }
         .onAppear(perform: self.fetchCoins)
     }
@@ -58,15 +66,15 @@ struct CoinsListView: View {
         Task {
             do {
                 try await self.store.loadTopTenCoins()
-                self.state = .completed
+                withAnimation { self.state = .completed }
                 
             } catch NetworkError.noInternetConnection {
                 
-                self.state = .failed(LK.errorConnectivity.rawValue)
+                withAnimation { self.state = .failed(LK.errorConnectivity.rawValue) }
                 
             } catch {
                 
-                self.state = .failed(LK.errorRetry.rawValue)
+                withAnimation { self.state = .failed(LK.errorRetry.rawValue) }
             }
         }
     }
