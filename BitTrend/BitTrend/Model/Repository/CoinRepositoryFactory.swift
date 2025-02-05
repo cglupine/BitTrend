@@ -14,10 +14,12 @@ struct CoinRepositoryFactory {
         let reachabilityService = ReachabilityServiceFactory.createReachabilityService()
         
         if AppData.isMockEnabled() {
-            
-            return MockCoinRepository(reachabilityService: reachabilityService)
+        
+            let session = NetworkSessionFactory.createEphemeral()
+            return MockCoinRepository(session: session, reachabilityService: reachabilityService)
         }
         
-        return NetworkCoinRepository(reachabilityService: reachabilityService)
+        let session = NetworkSessionFactory.create()
+        return NetworkCoinRepository(session: session, reachabilityService: reachabilityService)
     }
 }

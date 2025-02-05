@@ -9,10 +9,12 @@ import Foundation
 
 final class MockCoinRepository: CoinRepository {
     
+    private let session: URLSession
     private let reachabilityService: ReachabilityService
     
-    init(reachabilityService: ReachabilityService) {
+    init(session: URLSession, reachabilityService: any ReachabilityService) {
         
+        self.session = session
         self.reachabilityService = reachabilityService
     }
     
