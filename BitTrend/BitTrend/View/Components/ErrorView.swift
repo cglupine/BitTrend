@@ -24,10 +24,14 @@ struct ErrorView: View {
                     .font(.subheadline)
                     .multilineTextAlignment(.center)
                 
-                Button(LK.retry.rawValue, action: self.action)
-                    .buttonStyle(.borderedProminent)
+                Button(LK.retry.rawValue) {
+                    
+                    withAnimation { self.action() }
+                }
+                .buttonStyle(.borderedProminent)
             }
         }
+        .transition(.scale(scale: 0.2).animation(.bouncy))
     }
 }
 
