@@ -1,0 +1,13 @@
+//
+//  Config.xcconfig
+//  BitTrend
+//
+//  Created by Gabriele Carbutto on 02/02/25.
+//
+
+// Configuration settings file format documentation can be found at:
+// https://help.apple.com/xcode/#/dev745c5c974
+
+COIN_GECKO_API_KEY = CG-fRVUuuySDnijDueBLjJxnzB4
+COIN_GECKO_API_BASE_URL_SCHEME = https
+COIN_GECKO_API_BASE_URL_HOSTNAME = api.coingecko.com/api/v3
