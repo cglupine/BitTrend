@@ -42,7 +42,9 @@ import Testing
         let coin = Coin.mockBitCoin()
         let details = try await self.store.loadDetailsTillLastWeek(forCoin: coin)
         #expect(!details.description.isEmpty)
-        #expect(!details.homepageURLString.isEmpty)
+        
+        let homepageURLString = try #require(details.homepageURLString)
+        #expect(!homepageURLString.isEmpty)
         
         let chardData = try #require(details.chartData)
         #expect(!chardData.isEmpty)

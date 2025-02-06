@@ -34,7 +34,15 @@ final class BitTrendUITests: XCTestCase {
         XCTAssertTrue(navBar.exists)
         
         let title = navBar.staticTexts.element.label
-        XCTAssertEqual(title, "Top Ten Coins")
+        
+        if Locale.current.language.languageCode == "it" {
+            
+            XCTAssertEqual(title, "Prime 10 Valute")
+            
+        } else {
+         
+            XCTAssertEqual(title, "Top Ten Coins")
+        }
         
         let list = self.app.collectionViews["list"]
         XCTAssertTrue(list.waitForExistence(timeout: 3))
