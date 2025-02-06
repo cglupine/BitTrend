@@ -24,7 +24,7 @@ struct CoinsListView: View {
     
     var body: some View {
         
-        NavigationStack {
+        NavigationSplitView {
             
             VStack {
                 switch self.state {
@@ -54,6 +54,10 @@ struct CoinsListView: View {
             }
             .navigationTitle(LK.topTenCoins.rawValue)
             .transition(.opacity)
+            
+        } detail: {
+            
+            InfoView(message: "Please, select a coin to see its details")
         }
         .onAppear(perform: self.fetchCoins)
     }
