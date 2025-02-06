@@ -13,7 +13,7 @@ struct RankView: View {
     
     var body: some View {
         
-        Text("#\(self.value)")
+        Text(verbatim: "#\(self.value)")
             .font(.caption)
             .foregroundStyle(.secondary)
             .padding(.vertical, 4)

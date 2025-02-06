@@ -12,12 +12,9 @@ typealias LK = LocalizedKey
 
 enum LocalizedKey: LocalizedStringKey {
     
-    case appName = "app.name"
-    case loading = "loading.message"
     case errorRetry = "error.retry.message"
     case errorConnectivity = "error.connectivity.message"
     case retry = "retry.action"
-    case showTrend = "trend.show.action"
     case chart = "chart.trend.name"
     case noData = "data.empty.message"
     case chartDay = "chart.day"
