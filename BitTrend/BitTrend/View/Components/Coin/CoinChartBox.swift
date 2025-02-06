@@ -18,6 +18,7 @@ struct CoinChartBox: View {
             CoinChartView(coin: self.coin, data: self.chartData)
                 .frame(height: 100)
                 .unredacted()
+                .accessibilityIdentifier("coinChart")
             
         } label: {
             

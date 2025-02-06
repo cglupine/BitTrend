@@ -8,7 +8,7 @@
 import Testing
 @testable import BitTrend
 
-struct MockCoinRepositoryTests {
+@Suite(.serialized) struct MockCoinRepositoryTests {
     
     private let repository: MockCoinRepository
     
@@ -17,7 +17,7 @@ struct MockCoinRepositoryTests {
         self.repository = .init(reachabilityService: MockReachabilityService())
     }
 
-    @Test(.serialized, arguments: [
+    @Test(arguments: [
         TrendingSearchListRequest.Outcome.success,
         TrendingSearchListRequest.Outcome.empty,
         TrendingSearchListRequest.Outcome.failure
@@ -42,7 +42,7 @@ struct MockCoinRepositoryTests {
         }
     }
     
-    @Test(.serialized, arguments: [
+    @Test(arguments: [
         BTCExchangeRatesRequest.Outcome.success,
         BTCExchangeRatesRequest.Outcome.empty,
         BTCExchangeRatesRequest.Outcome.failure
@@ -67,7 +67,7 @@ struct MockCoinRepositoryTests {
         }
     }
     
-    @Test(.serialized, arguments: [
+    @Test(arguments: [
         CoinDataRequest.Outcome.success,
         CoinDataRequest.Outcome.failure
     ]) func shouldFetchCoinDetails(outcome: CoinDataRequest.Outcome) async throws {
@@ -89,7 +89,7 @@ struct MockCoinRepositoryTests {
         }
     }
     
-    @Test(.serialized, arguments: [
+    @Test(arguments: [
         CoinHistoricalChartDataRequest.Outcome.success,
         CoinHistoricalChartDataRequest.Outcome.empty,
         CoinHistoricalChartDataRequest.Outcome.failure

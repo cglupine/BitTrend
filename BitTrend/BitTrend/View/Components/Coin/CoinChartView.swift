@@ -15,7 +15,7 @@ struct CoinChartView: View {
     
     var body: some View {
         
-        if let data {
+        if let data, !data.isEmpty {
             
             Chart {
                 ForEach(data) { entry in
@@ -55,9 +55,15 @@ struct CoinChartView: View {
             
         } else {
             
-            Image(systemName: "chart.xyaxis.line")
-                .font(.system(size: 60))
-                .foregroundStyle(.tertiary)
+            VStack {
+                Image(systemName: "chart.xyaxis.line")
+                    .font(.system(size: 60))
+                
+                Text(LK.noData.rawValue)
+                    .font(.caption)
+                    .redacted(reason: (self.data == nil ? .placeholder : []))
+            }
+            .foregroundStyle(.tertiary)
         }
     }
     

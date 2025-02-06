@@ -9,9 +9,9 @@ import SwiftUI
 
 extension CoinsListView {
     
-    enum ViewStatus {
+    enum ViewStatus: Equatable {
         
-        case loading, completed, failed
+        case loading, completed, failed(LocalizedStringKey)
     }
 }
 
@@ -20,31 +20,44 @@ struct CoinsListView: View {
     @Environment(CoinStore.self) private var store: CoinStore
     @State private var state: ViewStatus = .loading
     
+    private var isLoading: Bool { self.state == .loading }
+    
     var body: some View {
         
-        NavigationStack {
+        NavigationSplitView {
             
             VStack {
                 switch self.state {
                     
-                case .loading:
-                    ProgressView(LK.loading.rawValue)
+                case .failed(let message):
+                    ErrorView(message: message, action: self.fetchCoins)
                     
-                case .failed:
-                    ErrorView(action: self.fetchCoins)
-                    
-                case .completed:
-                    List(self.store.coins) { coin in
+                default:
+                    if !self.isLoading, self.store.coins.isEmpty {
                         
-                        NavigationLink(destination: CoinDetailView(coin: coin)) {
+                        ErrorView(message: LK.noData.rawValue, action: self.fetchCoins)
+                        
+                    } else {
+                        
+                        List(self.isLoading ? .skeleton(size: 10) : self.store.coins) { coin in
                             
-                            CoinRowView(coin: coin)
+                            NavigationLink(destination: CoinDetailView(coin: coin)) {
+                                
+                                CoinRowView(coin: coin)
+                                    .redacted(reason: (self.isLoading ? .placeholder : []))
+                            }
+                            .disabled(self.isLoading)
                         }
+                        .accessibilityIdentifier("list")
                     }
                 }
             }
-            .navigationTitle(LK.appName.rawValue)
-        }
+            .navigationTitle(LK.topTenCoins.rawValue)
+            .transition(.opacity)
+            
+        } detail: {
+            
+            InfoView(message: LK.coinDetailsPrompt.rawValue)
         }
         .onAppear(perform: self.fetchCoins)
     }
@@ -57,12 +70,16 @@ struct CoinsListView: View {
         
         Task {
             do {
-                try await self.store.fetchCoins()
-                self.state = .completed
+                try await self.store.loadTopTenCoins()
+                withAnimation { self.state = .completed }
+                
+            } catch NetworkError.noInternetConnection {
+                
+                withAnimation { self.state = .failed(LK.errorConnectivity.rawValue) }
                 
             } catch {
                 
-                self.state = .failed
+                withAnimation { self.state = .failed(LK.errorRetry.rawValue) }
             }
         }
     }
@@ -72,7 +89,6 @@ struct CoinsListView: View {
     CoinsListView()
         .environment(
             CoinStore(repository: MockCoinRepository(
-                session: NetworkSessionFactory.createEphemeral(),
                 reachabilityService: MockReachabilityService())
             )
         )

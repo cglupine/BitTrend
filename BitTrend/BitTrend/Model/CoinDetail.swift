@@ -10,6 +10,6 @@ import Foundation
 struct CoinDetail {
     
     let description: String
-    let homepageURLString: String
+    let homepageURLString: String?
     var chartData: [ChartEntry]?
 }

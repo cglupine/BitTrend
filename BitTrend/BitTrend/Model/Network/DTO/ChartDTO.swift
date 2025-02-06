@@ -13,11 +13,6 @@ struct ChartDTO: Decodable {
         
         let date: Date
         let price: Double
-        
-        func toModel() -> ChartEntry {
-            
-            .init(date: self.date, amount: self.price)
-        }
     }
     
     let prices: [Entry]

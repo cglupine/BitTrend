@@ -24,6 +24,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		13379ABD2D53A9C8003852A6 /* BitTrend.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = BitTrend.xctestplan; sourceTree = "<group>"; };
 		13F8F8B82D4F741400446265 /* BitTrend.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BitTrend.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13F8F8C92D4F741500446265 /* BitTrendTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BitTrendTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		13F8F8D32D4F741500446265 /* BitTrendUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BitTrendUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -88,6 +89,7 @@
 		13F8F8AF2D4F741400446265 = {
 			isa = PBXGroup;
 			children = (
+				13379ABD2D53A9C8003852A6 /* BitTrend.xctestplan */,
 				13F8F8BA2D4F741400446265 /* BitTrend */,
 				13F8F8CC2D4F741500446265 /* BitTrendTests */,
 				13F8F8D62D4F741500446265 /* BitTrendUITests */,
@@ -205,6 +207,7 @@
 			knownRegions = (
 				en,
 				Base,
+				it,
 			);
 			mainGroup = 13F8F8AF2D4F741400446265;
 			minimizedProjectReferenceProxies = 1;
@@ -348,6 +351,8 @@
 		};
 		13F8F8DC2D4F741500446265 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReferenceAnchor = 13F8F8BA2D4F741400446265 /* BitTrend */;
+			baseConfigurationReferenceRelativePath = Config.xcconfig;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;

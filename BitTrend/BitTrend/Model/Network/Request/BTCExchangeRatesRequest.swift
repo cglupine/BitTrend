@@ -34,7 +34,7 @@ extension BTCExchangeRatesRequest {
     
     class iMockURLProtocol: MockURLProtocol {
         
-        static var outcome: Outcome = .empty
+        static var outcome: Outcome = .success
         
         override func startLoading() {
             

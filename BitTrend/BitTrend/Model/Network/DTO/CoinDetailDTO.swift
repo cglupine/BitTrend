@@ -23,11 +23,18 @@ struct CoinDetailDTO: Decodable {
     let links: Links
     let market_data: Market
     
-    func toModel(languageCode: String) -> CoinDetail {
+    func description(languageCode: String?) -> String? {
         
-        .init(
-            description: description[languageCode] ?? "",
-            homepageURLString: links.homepage.first ?? ""
-        )
+        guard let languageCode else {
+            
+            return nil
+        }
+        
+        return self.description[languageCode]
+    }
+    
+    func homePageURLString() -> String? {
+        
+         self.links.homepage.first
     }
 }

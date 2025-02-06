@@ -1,20 +1,6 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
-    "#%lld" : {
-
-    },
-    "app.name" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "BitTrend"
-          }
-        }
-      }
-    },
     "chart.day" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -22,6 +8,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Day"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Giorno"
           }
         }
       }
@@ -34,6 +26,12 @@
             "state" : "translated",
             "value" : "Price"
           }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Prezzo"
+          }
         }
       }
     },
@@ -44,6 +42,29 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Trend Chart"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Grafico di Tendenza"
+          }
+        }
+      }
+    },
+    "coin.details.prompt" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Please, select a coin to see its details"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Selezionare una valuta per vederne i dettagli"
           }
         }
       }
@@ -56,6 +77,12 @@
             "state" : "translated",
             "value" : "Top Ten Coins"
           }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Prime 10 Valute"
+          }
         }
       }
     },
@@ -66,6 +93,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "No data available"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nessun dato disponibile"
           }
         }
       }
@@ -78,6 +111,29 @@
             "state" : "translated",
             "value" : "Description"
           }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Descrizione"
+          }
+        }
+      }
+    },
+    "error.connectivity.message" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No Internet access, please check your device connectivity"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nessun accesso a Internet, controlla la connettività del tuo dispositivo"
+          }
         }
       }
     },
@@ -87,18 +143,13 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Oops, an error occurred, please try again"
+            "value" : "Oops, an error occurred. Please try again"
           }
-        }
-      }
-    },
-    "loading.message" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
+        },
+        "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Loading..."
+            "value" : "Ops, si è verificato un errore. Prova di nuovo"
           }
         }
       }
@@ -111,6 +162,12 @@
             "state" : "translated",
             "value" : "See more"
           }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vedi di più"
+          }
         }
       }
     },
@@ -122,16 +179,11 @@
             "state" : "translated",
             "value" : "Retry"
           }
-        }
-      }
-    },
-    "trend.show.action" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
+        },
+        "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Show Trend"
+            "value" : "Riprova"
           }
         }
       }
@@ -143,6 +195,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Last 7 Days"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ultimi 7 Giorni"
           }
         }
       }
