@@ -57,7 +57,7 @@ struct CoinsListView: View {
             
         } detail: {
             
-            InfoView(message: "Please, select a coin to see its details")
+            InfoView(message: LK.coinDetailsPrompt.rawValue)
         }
         .onAppear(perform: self.fetchCoins)
     }

@@ -52,6 +52,23 @@
         }
       }
     },
+    "coin.details.prompt" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Please, select a coin to see its details"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Selezionare una valuta per vederne i dettagli"
+          }
+        }
+      }
+    },
     "coins.top.ten.name" : {
       "extractionState" : "manual",
       "localizations" : {

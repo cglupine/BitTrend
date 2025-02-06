@@ -23,4 +23,5 @@ enum LocalizedKey: LocalizedStringKey {
     case lastWeek = "week.last.message"
     case seeMore = "more.message"
     case topTenCoins = "coins.top.ten.name"
+    case coinDetailsPrompt = "coin.details.prompt"
 }
