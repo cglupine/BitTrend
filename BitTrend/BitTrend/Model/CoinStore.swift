@@ -22,22 +22,27 @@ import Foundation
     }
     
     @MainActor func loadTopTenCoins() async throws {
-
-        let eurRate = (try? await self.loadEURRate()) ?? .zero
-        let fetched = try await self.repository.fetchCoins()
+        
+        let languageCode = Locale.current.language.languageCode?.identifier ?? Self.defaultLanguageCode
+        let fetched = try await self.repository.fetchMarketCoins(
+            count: 10,
+            currencyCode: Self.eurCurrencyCode,
+            languageCode: languageCode,
+            precision: 2)
             .map { dto in
                 
                 Coin(id: dto.id,
-                      name: dto.name,
-                      symbol: dto.symbol,
-                      rank: dto.market_cap_rank,
-                      eurPrice: dto.price_btc * eurRate,
-                      percentageChange: dto.data.price_change_percentage_24h[Self.eurCurrencyCode] ?? .zero,
-                      thumbnailURLString: dto.thumb,
-                      largeImageURLString: dto.large)
+                     name: dto.name,
+                     symbol: dto.symbol,
+                     rank: dto.market_cap_rank,
+                     eurPrice: dto.current_price,
+                     marketCapPrice: dto.market_cap,
+                     percentageChange: dto.price_change_percentage_24h,
+                     thumbnailURLString: dto.image,
+                     largeImageURLString: dto.image)
             }
         
-        self.coins = Array(fetched.prefix(10))
+        self.coins = fetched
     }
     
     func loadDetailsTillLastWeek(forCoin coin: Coin) async throws -> CoinDetail {
@@ -74,11 +79,5 @@ import Foundation
     func cancelDetailsFetching() {
         
         self.repository.cancel()
-    }
-
-    func loadEURRate() async throws -> Double {
-        
-        let rates = try await self.repository.fetchBitCoinRates()
-        return rates.rates[Self.eurCurrencyCode]?.value ?? .zero
     }
 }

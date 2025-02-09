@@ -13,20 +13,13 @@ import Testing
     private let store: CoinStore
     
     init () {
-        
-        BTCExchangeRatesRequest.iMockURLProtocol.outcome = .success
-        TrendingSearchListRequest.iMockURLProtocol.outcome = .success
+       
+        CoinListMarketRequest.iMockURLProtocol.outcome = .success
         CoinDataRequest.iMockURLProtocol.outcome = .success
         CoinHistoricalChartDataRequest.iMockURLProtocol.outcome = .success
         
         self.store = CoinStore(repository: MockCoinRepository(
             reachabilityService: MockReachabilityService()))
-    }
-
-    @Test func shouldLoadEURRate() async throws {
-        
-        let rate = try await self.store.loadEURRate()
-        #expect(rate > 0)
     }
 
     @Test func shouldLoadTopTenCoins() async throws {

@@ -18,51 +18,29 @@ import Testing
     }
 
     @Test(arguments: [
-        TrendingSearchListRequest.Outcome.success,
-        TrendingSearchListRequest.Outcome.empty,
-        TrendingSearchListRequest.Outcome.failure
-    ]) func shouldFetchCoins(outcome: TrendingSearchListRequest.Outcome) async throws {
+        CoinListMarketRequest.Outcome.success,
+        CoinListMarketRequest.Outcome.empty,
+        CoinListMarketRequest.Outcome.failure
+    ]) func shouldFetchCoins(outcome: CoinListMarketRequest.Outcome) async throws {
         
-        TrendingSearchListRequest.iMockURLProtocol.outcome = outcome
+        CoinListMarketRequest.iMockURLProtocol.outcome = outcome
 
         switch outcome {
             
         case .success:
-            let coins = try await self.repository.fetchCoins()
-            #expect(coins.count == 15)
+            let coins = try await self.repository.fetchMarketCoins(
+                count: 10, currencyCode: "eur", languageCode: "en", precision: 2)
+            #expect(coins.count == 10)
             
         case .empty:
-            let coins = try await self.repository.fetchCoins()
+            let coins = try await self.repository.fetchMarketCoins(
+                count: 10, currencyCode: "eur", languageCode: "en", precision: 2)
             #expect(coins.isEmpty)
             
         case .failure:
             await #expect(throws: (any Error).self) {
-                try await self.repository.fetchCoins()
-            }
-        }
-    }
-    
-    @Test(arguments: [
-        BTCExchangeRatesRequest.Outcome.success,
-        BTCExchangeRatesRequest.Outcome.empty,
-        BTCExchangeRatesRequest.Outcome.failure
-    ]) func shouldFetchRates(outcome: BTCExchangeRatesRequest.Outcome) async throws {
-        
-        BTCExchangeRatesRequest.iMockURLProtocol.outcome = outcome
-        
-        switch outcome {
-            
-        case .success:
-            let rates = try await self.repository.fetchBitCoinRates()
-            #expect(!rates.rates.isEmpty)
-            
-        case .empty:
-            let rates = try await self.repository.fetchBitCoinRates()
-            #expect(rates.rates.isEmpty)
-            
-        case .failure:
-            await #expect(throws: (any Error).self) {
-                try await self.repository.fetchBitCoinRates()
+                try await self.repository.fetchMarketCoins(
+                    count: 10, currencyCode: "eur", languageCode: "en", precision: 2)
             }
         }
     }
@@ -80,7 +58,6 @@ import Testing
             let details = try await self.repository.fetchDetails(for: "bitcoin")
             #expect(details.description["en"] != nil)
             #expect(!details.links.homepage.isEmpty)
-            #expect(details.market_data.current_price["eur"] != nil)
             
         case .failure:
             await #expect(throws: (any Error).self) {
