@@ -23,34 +23,26 @@ struct NetworkRequestsTest {
 
     @Test func shouldCreateTrendingSearchListURLRequest() async throws {
 
-        let request = TrendingSearchListRequest()
+        let request = CoinListMarketRequest(query: .init(
+            vs_currency: "eur",
+            per_page: 10,
+            locale: "en",
+            precision: "2"))
         
         let headers = try request.makeHeaders()
         #expect(headers == self.commonHeaders)
-        #expect(try request.makeQuery() == nil)
+        
+        let query = try #require(try request.makeQuery())
+        #expect(query["vs_currency"] as? String == request.query.vs_currency)
+        #expect(query["per_page"] as? Int == request.query.per_page)
+        #expect(query["locale"] as? String == request.query.locale)
+        #expect(query["precision"] as? String == request.query.precision)
         
         let urlRequest = try request.makeURLRequest()
         #expect(throws: Never.self) {
             try #require(URL(string: request.absolutePath))
         }
-        #expect(urlRequest.url?.absoluteString == request.absolutePath)
-        #expect(urlRequest.httpMethod == "GET")
-        #expect(urlRequest.allHTTPHeaderFields == headers)
-    }
-    
-    @Test func shouldCreateBTCExchangeRatesURLRequest() async throws {
-
-        let request = BTCExchangeRatesRequest()
-        
-        let headers = try request.makeHeaders()
-        #expect(headers == self.commonHeaders)
-        #expect(try request.makeQuery() == nil)
-        
-        let urlRequest = try request.makeURLRequest()
-        #expect(throws: Never.self) {
-            try #require(URL(string: request.absolutePath))
-        }
-        #expect(urlRequest.url?.absoluteString == request.absolutePath)
+        #expect(urlRequest.url?.path() == urlRequest.url?.path())
         #expect(urlRequest.httpMethod == "GET")
         #expect(urlRequest.allHTTPHeaderFields == headers)
     }

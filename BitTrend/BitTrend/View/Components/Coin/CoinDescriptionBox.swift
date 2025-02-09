@@ -23,6 +23,7 @@ struct CoinDescriptionBox: View {
             } else {
                 
                 Text(String.placeholder(length: 200))
+                    .padding(.top, 4)
             }
             
             if let homepageURL = URL(string: self.detail?.homepageURLString ?? "") {

@@ -8,5 +8,10 @@
 	<string>$(COIN_GECKO_API_BASE_URL_SCHEME)</string>
 	<key>COIN_GECKO_API_KEY</key>
 	<string>$(COIN_GECKO_API_KEY)</string>
+	<key>UILaunchScreen</key>
+	<dict>
+		<key>UIColorName</key>
+		<string>AccentColor</string>
+	</dict>
 </dict>
 </plist>

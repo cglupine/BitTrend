@@ -24,9 +24,13 @@ final class NetworkCoinRepository: CoinRepository {
         self.pendingLoader?.cancel()
     }
     
-    func fetchBitCoinRates() async throws -> RatesDTO {
+    func fetchMarketCoins(count: Int, currencyCode: String, languageCode: String, precision: Int) async throws -> [CoinListMarketDTO] {
         
-        let request = BTCExchangeRatesRequest()
+        let request = CoinListMarketRequest(query: .init(
+            vs_currency: currencyCode,
+            per_page: count,
+            locale: languageCode,
+            precision: "\(precision)"))
         let loader = NetworkRequestLoader(request: request,
                                           session: self.session,
                                           reachabilityService: self.reachabilityService)
@@ -36,20 +40,6 @@ final class NetworkCoinRepository: CoinRepository {
         self.pendingLoader = nil
         
         return response
-    }
-    
-    func fetchCoins() async throws -> [CoinDTO] {
-        
-        let request = TrendingSearchListRequest()
-        let loader = NetworkRequestLoader(request: request,
-                                          session: self.session,
-                                          reachabilityService: self.reachabilityService)
-        self.pendingLoader = loader
-        
-        let response = try await loader.loadResponse()
-        self.pendingLoader = nil
-        
-        return response.coins.map { $0.item }
     }
     
     func fetchDetails(for coinId: String) async throws -> CoinDetailDTO {

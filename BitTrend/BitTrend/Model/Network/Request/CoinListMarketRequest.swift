@@ -1,29 +1,35 @@
 //
-//  BTCExchangeRatesRequest.swift
+//  CoinListMarketRequest.swift
 //  BitTrend
 //
-//  Created by Gabriele Carbutto on 04/02/25.
+//  Created by Gabriele Carbutto on 09/02/25.
 //
 
 import Foundation
 
-struct BTCExchangeRatesRequest: JSONNetworkRequest {
+struct CoinListMarketRequest: JSONNetworkRequest {
     
-    typealias HeadersDataType = NetworkEmptyDTO
-    typealias QueryDataType = NetworkEmptyDTO
-    typealias ResponseDataType = RatesDTO
+    typealias ResponseDataType = [CoinListMarketDTO]
     
     let method: HTTPMethod = .GET
     let headers = NetworkEmptyDTO()
-    let query = NetworkEmptyDTO()
+    let query: CoinListMarketQuery
     
     var absolutePath: String {
-       
-        AppData.baseURLString() + "/exchange_rates"
+        
+        AppData.baseURLString() + "/coins/markets"
     }
 }
 
-extension BTCExchangeRatesRequest {
+struct CoinListMarketQuery: Encodable {
+    
+    let vs_currency: String
+    let per_page: Int
+    let locale: String
+    let precision: String
+}
+
+extension CoinListMarketRequest {
     
     enum Outcome: String {
         
@@ -46,7 +52,7 @@ extension BTCExchangeRatesRequest {
                     throw URLError(.badServerResponse)
 
                 default:
-                    return try Self.localMockJsonResponseData(for: BTCExchangeRatesRequest.self, resultSuffix: Self.outcome.rawValue)
+                    return try Self.localMockJsonResponseData(for: CoinListMarketRequest.self, resultSuffix: Self.outcome.rawValue)
                 }
             }
             

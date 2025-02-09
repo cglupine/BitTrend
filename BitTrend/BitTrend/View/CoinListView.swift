@@ -48,6 +48,9 @@ struct CoinsListView: View {
                             }
                             .disabled(self.isLoading)
                         }
+                        .refreshable {
+                            self.fetchCoins()
+                        }
                         .accessibilityIdentifier("list")
                     }
                 }

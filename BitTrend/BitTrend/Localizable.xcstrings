@@ -154,6 +154,23 @@
         }
       }
     },
+    "market.cap.name" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Market Cap"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Capitalizzazione di Mercato"
+          }
+        }
+      }
+    },
     "more.message" : {
       "extractionState" : "manual",
       "localizations" : {
