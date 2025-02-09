@@ -14,14 +14,8 @@ struct CoinDetailDTO: Decodable {
         let homepage: [String]
     }
     
-    struct Market: Decodable {
-        
-        let current_price: [String: Double]
-    }
-    
     let description: [String: String]
     let links: Links
-    let market_data: Market
     
     func description(languageCode: String?) -> String? {
         

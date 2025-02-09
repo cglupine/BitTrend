@@ -76,6 +76,9 @@ struct CoinDetailView: View {
 
         CoinChartBox(coin: self.coin, chartData: detail?.chartData)
         
+        CoinMarketCapView(coin: self.coin)
+            .padding(.top)
+        
         CoinDescriptionBox(detail: detail)
             .padding(.top)
     }

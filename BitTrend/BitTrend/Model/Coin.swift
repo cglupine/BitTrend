@@ -14,6 +14,7 @@ struct Coin: Identifiable, Equatable {
     let symbol: String
     let rank: Int
     let eurPrice: Double
+    let marketCapPrice: Double
     let percentageChange: Double
     let thumbnailURLString: String
     let largeImageURLString: String
@@ -30,6 +31,7 @@ struct Coin: Identifiable, Equatable {
             symbol: "BTC",
             rank: 1,
             eurPrice: 95832.34,
+            marketCapPrice: 1844536172963,
             percentageChange: -2.38807017432102,
             thumbnailURLString: "https://coin-images.coingecko.com/coins/images/1/standard/bitcoin.png?1696501400",
             largeImageURLString: "https://coin-images.coingecko.com/coins/images/1/large/bitcoin.png?1696501400"

@@ -23,34 +23,15 @@ final class MockCoinRepository: CoinRepository {
         self.pendingLoader?.cancel()
     }
     
-    func fetchBitCoinRates() async throws -> RatesDTO {
+    func fetchMarketCoins(count: Int, currencyCode: String, languageCode: String, precision: Int) async throws -> [CoinListMarketDTO] {
         
-        let session = NetworkSessionFactory.createEphemeral(with: BTCExchangeRatesRequest.iMockURLProtocol.self)
+        let session = NetworkSessionFactory.createEphemeral(with: CoinListMarketRequest.iMockURLProtocol.self)
         
-        let request = BTCExchangeRatesRequest()
-        let loader = NetworkRequestLoader(request: request,
-                                          session: session,
-                                          reachabilityService: self.reachabilityService)
-        self.pendingLoader = loader
-        
-        /// simulate network request loading time
-        try await Task.sleep(for: .seconds(Double.random(in: Self.delayRange)))
-        
-        if Task.isCancelled {
-            throw CancellationError()
-        }
-        
-        let response = try await loader.loadResponse()
-        self.pendingLoader = nil
-        
-        return response
-    }
-    
-    func fetchCoins() async throws -> [CoinDTO] {
-        
-        let session = NetworkSessionFactory.createEphemeral(with: TrendingSearchListRequest.iMockURLProtocol.self)
-        
-        let request = TrendingSearchListRequest()
+        let request = CoinListMarketRequest(query: .init(
+            vs_currency: currencyCode,
+            per_page: count,
+            locale: languageCode,
+            precision: "\(precision)"))
         let loader = NetworkRequestLoader(request: request,
                                           session: session,
                                           reachabilityService: self.reachabilityService)
@@ -66,7 +47,7 @@ final class MockCoinRepository: CoinRepository {
         let response = try await loader.loadResponse()
         self.pendingLoader = nil
         
-        return response.coins.map { $0.item }
+        return response
     }
     
     func fetchDetails(for coinId: String) async throws -> CoinDetailDTO {
