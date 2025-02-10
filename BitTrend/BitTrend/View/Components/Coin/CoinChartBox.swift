@@ -13,6 +13,7 @@ struct CoinChartBox: View {
     let chartData: [ChartEntry]?
     
     var body: some View {
+        
         GroupBox {
             
             CoinChartView(coin: self.coin, data: self.chartData)

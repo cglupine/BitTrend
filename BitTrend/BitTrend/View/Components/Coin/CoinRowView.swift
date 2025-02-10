@@ -20,7 +20,7 @@ struct CoinRowView: View {
             HStack(alignment: .firstTextBaseline, spacing: 4) {
              
                 Text(self.coin.name)
-                Text(self.coin.symbol)
+                Text(self.coin.symbol.uppercased())
                     .font(.caption)
                     .foregroundStyle(.gray)
             }
