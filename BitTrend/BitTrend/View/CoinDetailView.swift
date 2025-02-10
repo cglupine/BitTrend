@@ -20,7 +20,16 @@ struct CoinDetailView: View {
     @Environment(\.openURL) private var openURL
     @Environment(CoinStore.self) private var store: CoinStore
     @State private var state: ViewStatus = .loading
+    
     let coin: Coin
+    private var imageSize: CGFloat {
+        
+#if os(watchOS)
+        60
+#else
+        150
+#endif
+    }
     
     var body: some View {
         
@@ -28,7 +37,7 @@ struct CoinDetailView: View {
             
             VStack {
                 
-                CoinImageView(coin: self.coin, size: 150, useThumbnail: false)
+                CoinImageView(coin: self.coin, size: self.imageSize, useThumbnail: false)
                 
                 CoinInfoView(coin: self.coin)
                 
