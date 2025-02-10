@@ -1,8 +1,8 @@
 //
 //  CoinRowView.swift
-//  BitTrend
+//  BitTrendWatchApp Watch App
 //
-//  Created by Gabriele Carbutto on 02/02/25.
+//  Created by Gabriele Carbutto on 09/02/25.
 //
 
 import SwiftUI
@@ -15,11 +15,10 @@ struct CoinRowView: View {
         
         HStack {
             
-            CoinImageView(coin: self.coin, size: 50, useThumbnail: true)
-            
-            HStack(alignment: .firstTextBaseline, spacing: 4) {
-             
-                Text(self.coin.name)
+            VStack {
+                
+                CoinImageView(coin: self.coin, size: 50, useThumbnail: true)
+    
                 Text(self.coin.symbol.uppercased())
                     .font(.caption)
                     .foregroundStyle(.gray)

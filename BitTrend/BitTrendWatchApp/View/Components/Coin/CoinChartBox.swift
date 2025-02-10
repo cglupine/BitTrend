@@ -1,8 +1,8 @@
 //
 //  CoinChartBox.swift
-//  BitTrend
+//  BitTrendWatchApp Watch App
 //
-//  Created by Gabriele Carbutto on 04/02/25.
+//  Created by Gabriele Carbutto on 09/02/25.
 //
 
 import SwiftUI
@@ -14,19 +14,17 @@ struct CoinChartBox: View {
     
     var body: some View {
         
-        GroupBox {
-            
-            CoinChartView(coin: self.coin, data: self.chartData)
-                .frame(height: 100)
-                .unredacted()
-                .accessibilityIdentifier("coinChart")
-            
-        } label: {
+        VStack(alignment: .leading) {
             
             Text(LK.lastWeek.rawValue)
                 .font(.caption)
                 .fontWeight(.thin)
             Text(LK.chart.rawValue)
+            
+            CoinChartView(coin: self.coin, data: self.chartData)
+                .frame(height: 100)
+                .unredacted()
+                .accessibilityIdentifier("coinChart")
         }
         .padding(.top)
     }

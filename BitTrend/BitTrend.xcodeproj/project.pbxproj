@@ -6,7 +6,18 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		1317922C2D59269500D14619 /* BitTrendWatchApp.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 131792092D59269400D14619 /* BitTrendWatchApp.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
+		1317922A2D59269500D14619 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 13F8F8B02D4F741400446265 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 131792082D59269400D14619;
+			remoteInfo = "BitTrendWatchApp";
+		};
 		13F8F8CA2D4F741500446265 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 13F8F8B02D4F741400446265 /* Project object */;
@@ -23,7 +34,22 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		1317922D2D59269500D14619 /* Embed Watch Content */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 12;
+			dstPath = "$(CONTENTS_FOLDER_PATH)/Watch";
+			dstSubfolderSpec = 16;
+			files = (
+				1317922C2D59269500D14619 /* BitTrendWatchApp.app in Embed Watch Content */,
+			);
+			name = "Embed Watch Content";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
+		131792092D59269400D14619 /* BitTrendWatchApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BitTrendWatchApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13379ABD2D53A9C8003852A6 /* BitTrend.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = BitTrend.xctestplan; sourceTree = "<group>"; };
 		13F8F8B82D4F741400446265 /* BitTrend.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BitTrend.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13F8F8C92D4F741500446265 /* BitTrendTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BitTrendTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -31,6 +57,57 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		1317936E2D592B0F00D14619 /* Exceptions for "BitTrend" folder in "BitTrendWatchApp" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Localizable.xcstrings,
+				Model/ChartEntry.swift,
+				Model/Coin.swift,
+				Model/CoinDetail.swift,
+				Model/CoinStore.swift,
+				Model/Network/CancellableNetworkRequestLoader.swift,
+				Model/Network/DTO/ChartDTO.swift,
+				Model/Network/DTO/CoinDetailDTO.swift,
+				Model/Network/DTO/CoinListMarketDTO.swift,
+				Model/Network/DTO/NetworkEmptyDTO.swift,
+				Model/Network/Mock/json/CoinDataRequest_success.json,
+				Model/Network/Mock/json/CoinHistoricalChartDataRequest_empty.json,
+				Model/Network/Mock/json/CoinHistoricalChartDataRequest_success.json,
+				Model/Network/Mock/json/CoinListMarketRequest_empty.json,
+				Model/Network/Mock/json/CoinListMarketRequest_success.json,
+				Model/Network/Mock/MockURLProtocol.swift,
+				Model/Network/NetworkError.swift,
+				Model/Network/NetworkLogger.swift,
+				Model/Network/NetworkRequestLoader.swift,
+				Model/Network/NetworkSessionFactory.swift,
+				Model/Network/Request/CoinDataRequest.swift,
+				Model/Network/Request/CoinHistoricalChartDataRequest.swift,
+				Model/Network/Request/CoinListMarketRequest.swift,
+				Model/Network/Request/JSONNetworkRequest.swift,
+				Model/Network/Request/NetworkRequest.swift,
+				Model/Network/URLResponseValidator.swift,
+				Model/Repository/CoinRepository.swift,
+				Model/Repository/CoinRepositoryFactory.swift,
+				Model/Repository/MockCoinRepository.swift,
+				Model/Repository/NetworkCoinRepository.swift,
+				Model/Service/MockReachabilityService.swift,
+				Model/Service/NetworkReachabilityService.swift,
+				Model/Service/ReachabilityService.swift,
+				Model/Service/ReachabilityServiceFactory.swift,
+				Model/Utility/AppData.swift,
+				Model/Utility/Localization.swift,
+				"Utility/String+Extension.swift",
+				"Utility/Text+Extension.swift",
+				View/BitTrendApp.swift,
+				View/CoinDetailView.swift,
+				View/CoinListView.swift,
+				View/Components/Coin/CoinChartView.swift,
+				View/Components/Coin/CoinImageView.swift,
+				View/Components/PercentageIndicator.swift,
+				View/Components/RankView.swift,
+			);
+			target = 131792082D59269400D14619 /* BitTrendWatchApp */;
+		};
 		13F8F8FF2D4F75F600446265 /* Exceptions for "BitTrend" folder in "BitTrend" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
@@ -41,10 +118,16 @@
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
+		1317920A2D59269400D14619 /* BitTrendWatchApp */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = BitTrendWatchApp;
+			sourceTree = "<group>";
+		};
 		13F8F8BA2D4F741400446265 /* BitTrend */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
 				13F8F8FF2D4F75F600446265 /* Exceptions for "BitTrend" folder in "BitTrend" target */,
+				1317936E2D592B0F00D14619 /* Exceptions for "BitTrend" folder in "BitTrendWatchApp" target */,
 			);
 			path = BitTrend;
 			sourceTree = "<group>";
@@ -62,6 +145,13 @@
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		131792062D59269400D14619 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		13F8F8B52D4F741400446265 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -93,6 +183,7 @@
 				13F8F8BA2D4F741400446265 /* BitTrend */,
 				13F8F8CC2D4F741500446265 /* BitTrendTests */,
 				13F8F8D62D4F741500446265 /* BitTrendUITests */,
+				1317920A2D59269400D14619 /* BitTrendWatchApp */,
 				13F8F8B92D4F741400446265 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -103,6 +194,7 @@
 				13F8F8B82D4F741400446265 /* BitTrend.app */,
 				13F8F8C92D4F741500446265 /* BitTrendTests.xctest */,
 				13F8F8D32D4F741500446265 /* BitTrendUITests.xctest */,
+				131792092D59269400D14619 /* BitTrendWatchApp.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -110,6 +202,28 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		131792082D59269400D14619 /* BitTrendWatchApp */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 131792342D59269500D14619 /* Build configuration list for PBXNativeTarget "BitTrendWatchApp" */;
+			buildPhases = (
+				131792052D59269400D14619 /* Sources */,
+				131792062D59269400D14619 /* Frameworks */,
+				131792072D59269400D14619 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				1317920A2D59269400D14619 /* BitTrendWatchApp */,
+			);
+			name = BitTrendWatchApp;
+			packageProductDependencies = (
+			);
+			productName = "BitTrendWatchApp";
+			productReference = 131792092D59269400D14619 /* BitTrendWatchApp.app */;
+			productType = "com.apple.product-type.application";
+		};
 		13F8F8B72D4F741400446265 /* BitTrend */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 13F8F8DD2D4F741500446265 /* Build configuration list for PBXNativeTarget "BitTrend" */;
@@ -117,10 +231,12 @@
 				13F8F8B42D4F741400446265 /* Sources */,
 				13F8F8B52D4F741400446265 /* Frameworks */,
 				13F8F8B62D4F741400446265 /* Resources */,
+				1317922D2D59269500D14619 /* Embed Watch Content */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				1317922B2D59269500D14619 /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
 				13F8F8BA2D4F741400446265 /* BitTrend */,
@@ -188,6 +304,9 @@
 				LastSwiftUpdateCheck = 1620;
 				LastUpgradeCheck = 1620;
 				TargetAttributes = {
+					131792082D59269400D14619 = {
+						CreatedOnToolsVersion = 16.2;
+					};
 					13F8F8B72D4F741400446265 = {
 						CreatedOnToolsVersion = 16.2;
 					};
@@ -219,11 +338,19 @@
 				13F8F8B72D4F741400446265 /* BitTrend */,
 				13F8F8C82D4F741500446265 /* BitTrendTests */,
 				13F8F8D22D4F741500446265 /* BitTrendUITests */,
+				131792082D59269400D14619 /* BitTrendWatchApp */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		131792072D59269400D14619 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		13F8F8B62D4F741400446265 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -248,6 +375,13 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		131792052D59269400D14619 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		13F8F8B42D4F741400446265 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -272,6 +406,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		1317922B2D59269500D14619 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 131792082D59269400D14619 /* BitTrendWatchApp */;
+			targetProxy = 1317922A2D59269500D14619 /* PBXContainerItemProxy */;
+		};
 		13F8F8CB2D4F741500446265 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 13F8F8B72D4F741400446265 /* BitTrend */;
@@ -285,6 +424,71 @@
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
+		1317922E2D59269500D14619 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1.1.0;
+				DEVELOPMENT_ASSET_PATHS = "\"BitTrendWatchApp/Preview Content\"";
+				DEVELOPMENT_TEAM = 3ARM2VP59N;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "BitTrendWatchApp-Watch-App-Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = BitTrendWatchApp;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = it.gabrielecarbutto.BitTrend;
+				INFOPLIST_KEY_WKRunsIndependentlyOfCompanionApp = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = it.gabrielecarbutto.BitTrend.watchkitapp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 11.0;
+			};
+			name = Debug;
+		};
+		1317922F2D59269500D14619 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1.1.0;
+				DEVELOPMENT_ASSET_PATHS = "\"BitTrendWatchApp/Preview Content\"";
+				DEVELOPMENT_TEAM = 3ARM2VP59N;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "BitTrendWatchApp-Watch-App-Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = BitTrendWatchApp;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = it.gabrielecarbutto.BitTrend;
+				INFOPLIST_KEY_WKRunsIndependentlyOfCompanionApp = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = it.gabrielecarbutto.BitTrend.watchkitapp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				VALIDATE_PRODUCT = YES;
+				WATCHOS_DEPLOYMENT_TARGET = 11.0;
+			};
+			name = Release;
+		};
 		13F8F8DB2D4F741500446265 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReferenceAnchor = 13F8F8BA2D4F741400446265 /* BitTrend */;
@@ -580,6 +784,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		131792342D59269500D14619 /* Build configuration list for PBXNativeTarget "BitTrendWatchApp" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1317922E2D59269500D14619 /* Debug */,
+				1317922F2D59269500D14619 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		13F8F8B32D4F741400446265 /* Build configuration list for PBXProject "BitTrend" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
